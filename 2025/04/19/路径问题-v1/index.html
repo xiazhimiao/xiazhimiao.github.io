@@ -26,14 +26,18 @@
 <meta property="og:site_name" content="瀚海无江">
 <meta property="og:description" content="景区路径规划系统项目简介本项目是一个基于Python的景区路径规划系统，使用NetworkX进行图论计算和Plotly进行可视化展示。系统能够帮助游客规划景区游览路线，包括查找最短路径、记录已游览景点、推荐未游览景点以及计算环游所有景点的最短路线等功能。 项目仓库地址：GitHub仓库 克隆代码： 12git clone https:&#x2F;&#x2F;github.com&#x2F;xiazhimiao&#x2F;python.g">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98-v1/graph_visualization.png">
+<meta property="og:image" content="http://example.com/%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98-v1/shortest_path_demo.png">
+<meta property="og:image" content="http://example.com/%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98-v1/unvisited_attractions.png">
 <meta property="article:published_time" content="2025-04-18T23:52:24.000Z">
-<meta property="article:modified_time" content="2025-04-19T02:18:58.055Z">
+<meta property="article:modified_time" content="2025-04-19T02:25:34.329Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="景区路径规划">
 <meta property="article:tag" content="NetworkX">
 <meta property="article:tag" content="Plotly">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98-v1/graph_visualization.png">
   
   
   
@@ -287,14 +291,23 @@
 <h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">景区路径问题/<br>├── edges.xlsx            <span class="hljs-comment"># 景区边信息（路径连接关系）</span><br>├── nodes.xlsx           <span class="hljs-comment"># 景区节点信息（景点数据）</span><br>├── screenshots/         <span class="hljs-comment"># 示例截图目录</span><br>│   ├── graph_visualization.png<br>│   ├── shortest_path_demo.png<br>│   └── unvisited_attractions.png<br>├── scenic_path_v0.py    <span class="hljs-comment"># 项目早期版本代码</span><br>├── scenic_path_v1.py    <span class="hljs-comment"># 项目主程序（当前版本）</span><br>├── visited.xlsx         <span class="hljs-comment"># 已游览景点记录</span><br>├── 文字转表格<span class="hljs-string">.py</span>        <span class="hljs-comment"># 辅助工具（数据预处理）</span><br>└── 项目结构图<span class="hljs-string">.png</span>       <span class="hljs-comment"># 项目结构示意图</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="功能特性"><a href="#功能特性" class="headerlink" title="功能特性"></a>功能特性</h2><h3 id="1-景区地图可视化"><a href="#1-景区地图可视化" class="headerlink" title="1. 景区地图可视化"></a>1. 景区地图可视化</h3><ul>
-<li>从Excel文件读取节点和边数据</li>
-<li>生成交互式景区地图可视化</li>
-<li>显示景点名称和路径距离</li>
+<li><p>从Excel文件读取节点和边数据</p>
+</li>
+<li><p>生成交互式景区地图可视化</p>
+</li>
+<li><p>显示景点名称和路径距离</p>
+<p><img src="/./%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98-v1/graph_visualization.png" srcset="/img/loading.gif" lazyload alt="景区地图可视化"></p>
+</li>
 </ul>
 <h3 id="2-路径规划功能"><a href="#2-路径规划功能" class="headerlink" title="2. 路径规划功能"></a>2. 路径规划功能</h3><ul>
-<li><strong>最短路径查询</strong>：查找两个景点之间的最短路径</li>
-<li><strong>未游览景点推荐</strong>：基于当前位置推荐未游览景点（按距离排序）</li>
-<li><strong>环游路线规划</strong>：计算从起点出发游览所有景点的最短路线（TSP问题）</li>
+<li><p><strong>最短路径查询</strong>：查找两个景点之间的最短路径</p>
+</li>
+<li><p><strong>未游览景点推荐</strong>：基于当前位置推荐未游览景点（按距离排序）</p>
+</li>
+<li><p><strong>环游路线规划</strong>：计算从起点出发游览所有景点的最短路线（TSP问题）</p>
+<p><img src="/./%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98-v1/shortest_path_demo.png" srcset="/img/loading.gif" lazyload alt="最短路径查询示例"></p>
+<p><img src="/./%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98-v1/unvisited_attractions.png" srcset="/img/loading.gif" lazyload alt="未游览景点推荐示例"></p>
+</li>
 </ul>
 <blockquote>
 <p>注：环游路线规划功能由于采用回溯算法，在景点数量较多时计算耗时较长，暂未提供示例截图。建议在实际使用中景点数量控制在10个以内。</p>
