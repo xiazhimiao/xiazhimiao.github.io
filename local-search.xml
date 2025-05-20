@@ -641,6 +641,8 @@
     
     <categories>
       
+      <category>大数据</category>
+      
       <category>大数据存储</category>
       
     </categories>
@@ -877,6 +879,8 @@
     
     
     <categories>
+      
+      <category>大数据</category>
       
       <category>HBase</category>
       
