@@ -27,7 +27,7 @@
 <meta property="og:description" content="启动mysql    查看mysql服务状态 123systemctl status mysqldEBNF  启动mysql服务 123systemctl start mysqldCRMSH  开机启动mysql服务（说明:可以设置开机时启动mysql服务，避免每次开机启动mysql） 123systemctl enable mysqldROUTEROS  查看已经启动的服务 1234netst">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-31T08:09:37.000Z">
-<meta property="article:modified_time" content="2025-04-15T06:11:00.885Z">
+<meta property="article:modified_time" content="2025-05-20T06:54:53.156Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="原创">
 <meta property="article:tag" content="CentOS">
@@ -297,7 +297,7 @@
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs 1c">netstat <span class="hljs-punctuation">-</span>tunlp<br>netstat <span class="hljs-punctuation">-</span>tunlp <span class="hljs-string">| grep mysql</span><br><br><span class="hljs-number">1</span>C<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>查看mysql进程</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">ps</span> -ef | <span class="hljs-keyword">grep</span> mysql<br><br>VIM<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">ps</span> -ef | <span class="hljs-keyword">grep</span> mysql<br>  <br>VIM<br></code></pre></td></tr></table></figure></li>
 </ul>
 </blockquote>
 <ol>
@@ -356,6 +356,27 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/MySql/" class="category-chain-item">MySql</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
   
   
     <div class="post-meta">

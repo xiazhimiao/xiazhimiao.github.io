@@ -1,0 +1,661 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/xhy.jpg">
+  <link rel="icon" href="/img/xhy.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="微信的可用性分析可用性的概念在开始正文之前，我们先来了解一下，什么是人机交互系统中的“可用性”。定义：国际标准化组织(ISO9241-11)给出的可用性定义是指特定的用户在特定环境下使用产品并达到特定目标的效力、效率和满意的程度。可用性概念的内涵可以从五个方面去理解,这五个方面集中反映了用户对产品的需求,从它们的英文表示上被归纳为五个“E”。分别是：  有效性(Effective):怎样准确、完整">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信的可用性分析论文">
+<meta property="og:url" content="http://example.com/2024/11/05/%E5%BE%AE%E4%BF%A1%E7%9A%84%E5%8F%AF%E7%94%A8%E6%80%A7%E5%88%86%E6%9E%90%E8%AE%BA%E6%96%87/index.html">
+<meta property="og:site_name" content="瀚海无江">
+<meta property="og:description" content="微信的可用性分析可用性的概念在开始正文之前，我们先来了解一下，什么是人机交互系统中的“可用性”。定义：国际标准化组织(ISO9241-11)给出的可用性定义是指特定的用户在特定环境下使用产品并达到特定目标的效力、效率和满意的程度。可用性概念的内涵可以从五个方面去理解,这五个方面集中反映了用户对产品的需求,从它们的英文表示上被归纳为五个“E”。分别是：  有效性(Effective):怎样准确、完整">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-11-05T03:06:03.000Z">
+<meta property="article:modified_time" content="2025-05-20T07:28:57.872Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="人机交互">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>微信的可用性分析论文 - 瀚海无江</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>瀚海无江，思心似雪</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bj.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="微信的可用性分析论文"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-05 11:06" pubdate>
+          2024年11月5日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          38 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">微信的可用性分析论文</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="微信的可用性分析"><a href="#微信的可用性分析" class="headerlink" title="微信的可用性分析"></a>微信的可用性分析</h3><p>可用性的概念<br>在开始正文之前，我们先来了解一下，什么是人机交互系统中的“可用性”。<br>定义：<br>国际标准化组织(ISO9241-11)给出的可用性定义是指特定的用户在特定环境下使用产品并达到特定目标的效力、效率和满意的程度。可用性概念的内涵可以从五个方面去理解,这五个方面集中反映了用户对产品的需求,从它们的英文表示上被归纳为五个“E”。<br>分别是：</p>
+<ul>
+<li>有效性(Effective):怎样准确、完整地完成工作或达到目标。</li>
+<li>效率(Efficient):怎样快速地完成工作。</li>
+<li>吸引力(Engaging):用户界面如何吸引用户进行交互并在使用中得到满意和满足。</li>
+<li>容错能力(Error Tolerant):产品避免错误的发生并帮助用户修正错误的能力。</li>
+<li>易于学习(Easy to Learn):支持用户对产品的入门使用及在以后使用过程中的持续学习。<br>本文将共分以上五部分，对微信的可行性进行评估，每部分20分，总分100分。</li>
+</ul>
+<h4 id="有效性"><a href="#有效性" class="headerlink" title="有效性"></a>有效性</h4><p>微信可完成的工作分为4部分：<br>一、 社交沟通有效性：<br>(1)即时通讯功能强大：微信支持文字、语音、图片、视频等多种形式的信息传递，满足不同场景下用户的沟通需求。无论你是在忙碌时快速发送文字消息，还是在不方便打字时使用语音聊天，亦或是需要更直观地展示场景时发送图片和视频，微信都能提供便捷的沟通方式。实时在线状态和消息推送确保你不会错过任何重要信息，与亲朋好友、同事客户保持紧密联系。<br>(2)社交圈子广泛：可以通过手机号、微信号、二维码等多种方式添加好友，轻松扩大社交圈子。同时，微信还支持建立群组，方便家人、朋友、同事等不同群体之间的交流和互动。<br>公众号和小程序的存在进一步拓展了社交范围，用户可以关注感兴趣的公众号获取资讯，参与小程序中的社交活动，增加社交机会。<br>二、 工作协作有效性<br>(1)办公功能实用：微信提供了文件传输、语音通话、视频会议等功能，方便工作中的沟通和协作。特别是在远程办公日益普及的今天，微信的这些功能为团队协作提供了有力支持。企业微信更是针对企业用户进行了专门优化，提供了更强大的管理和协作功能，如考勤打卡、审批流程、日程安排等。<br>(2)信息传递高效：可以通过微信群组快速传达工作任务和信息，避免了传统邮件沟通的繁琐和延迟。同时，微信的消息提醒功能也能确保员工及时收到重要通知。<br>三、 生活服务有效性<br>(1)便捷的支付功能:微信支付方便快捷，支持多种支付场景，如购物、餐饮、出行等。用户只需扫描二维码或使用指纹识别等方式即可完成支付，无需携带现金或银行卡。微信支付还提供了账单查询、理财等功能，方便用户管理个人财务。<br>(2)丰富的生活服务:微信中的小程序涵盖了各种生活服务，如外卖点餐、酒店预订、电影票购买、打车服务等。用户可以在微信中一站式解决生活中的各种需求。城市服务功能则提供了政务服务、社保查询、交通违章查询等便民服务，让生活更加便捷。<br>四、 营销推广有效性<br>（1）公众号营销:企业和个人可以通过微信公众号进行品牌推广、产品宣传和客户服务。公众号文章、图文消息、视频等形式多样的内容可以吸引用户关注，提高品牌知名度。微信公众号还支持粉丝互动、留言评论等功能，增强用户粘性和参与度<br>（2）小程序营销:小程序可以作为企业的线上门店，展示产品和服务，提供在线购买和预订功能。通过微信的社交传播，小程序可以快速获得流量和用户。小程序还可以通过优惠券、秒杀、拼团等营销活动吸引用户，提高销售转化率。<br>综上所述，微信在社交沟通、工作协作、生活服务和营销推广等方面都具有很高的有效性，成为人们日常生活中不可或缺的一部分。因此在有效性方面得分：20分。</p>
+<h4 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h4><p>微信在效率方面可分为以下3部分：<br>一、沟通效率<br>(1)即时通讯高效便捷：微信的消息实时推送功能确保信息能够第一时间传达给接收者。无论是文字、语音还是图片、视频消息，都能迅速发送和接收，极大地提高了沟通的速度。例如，在讨论工作问题时，无需等待邮件的发送和接收过程，直接通过微信即可快速交流意见，快速做出决策。<br>(2)群组沟通协同工作：工作群组的建立使得团队成员之间可以方便地共享信息、讨论问题和分配任务。在群组中，大家可以同时参与讨论，快速达成共识，提高工作效率。例如，一个项目组可以通过微信群组及时沟通项目进展情况，协调工作安排，避免信息不对称和重复劳动。<br>二、办公效率<br>(1)办公工具集成度高:微信中的文件传输功能允许用户快速发送和接收各种类型的文件，包括文档、图片、音频和视频等。无论是在办公室还是在外出差，都可以轻松地进行文件交换，提高工作效率。语音转文字功能对于不方便打字的时候非常实用，可以快速将语音消息转换为文字，提高信息输入的速度。同时，微信还支持翻译功能，方便与不同语言的用户进行沟通。收藏功能可以让用户将重要的信息、文件和链接保存起来，方便随时查阅和使用。这对于需要经常参考某些资料的工作场景非常有帮助。<br>(2)小程序助力办公自动化:众多的办公小程序为用户提供了丰富的办公工具和服务。例如，文档编辑小程序可以让用户在手机上进行文档的创建、编辑和分享；任务管理小程序可以帮助用户规划和跟踪工作任务；考勤打卡小程序方便企业进行员工考勤管理等。这些小程序的使用可以大大提高办公效率，实现办公自动化。<br>三、 营销效率<br>(1)公众号营销精准高效:公众号的数据分析功能可以帮助企业了解用户需求和行为，从而优化营销策略，提高营销效率。例如，通过分析用户的阅读量、点赞数、评论等数据，可以了解哪些内容更受用户欢迎，从而调整内容创作方向。<br>(2)微信的社交传播特性使得小程序可以快速触达大量用户。用户可以通过分享小程序给好友、微信群等方式，扩大小程序的影响力，提高营销效率。<br>综上所述，微信通过高效的沟通、便捷的办公工具和强大的营销功能，为用户提供了快速完成工作的有效途径，极大地提高了工作效率。但是，由于部分办公小程序内嵌广告或加载广告的因素导致降低效率，降低兼容性，友好性，因此在有效性方面得分：17分。</p>
+<h4 id="吸引力"><a href="#吸引力" class="headerlink" title="吸引力"></a>吸引力</h4><p>微信在吸引力方面表现出色，主要体现在以下3个方面：<br>一、简洁直观的用户界面<br>(1)布局清晰：微信的界面设计简洁大方，各个功能模块布局合理。主界面上的聊天列表、通讯录、发现和我四个板块一目了然，用户可以轻松找到所需的功能入口。<br>聊天窗口简洁明了，显示聊天记录和输入框，没有过多的繁杂元素干扰，让用户能够专注于交流。<br>(2)图标易懂：微信中的图标设计简洁直观，易于理解。例如，通讯录中的联系人图标、发现页面的朋友圈图标、支付图标等，都能够让用户一眼看出其代表的功能，无需费力猜测。<br>二、丰富多样的交互方式<br>(1)文字、语音、图片、视频等多种交流形式：微信支持多种形式的信息传递，满足不同用户的交流需求。用户可以根据实际情况选择最方便的交流方式，增加了交互的趣味性和灵活性。语音聊天和视频聊天功能让用户能够更加直观地进行交流，增强了沟通的效果和吸引力。<br>(2)表情、红包、动态表情包等互动元素：微信中的丰富表情和动态表情包为用户的交流增添了乐趣。用户可以通过发送表情来表达自己的情感和态度，使交流更加生动有趣。红包功能也是微信的一大特色，无论是在节日祝福、朋友聚会还是工作群中，红包都能增加互动的趣味性和吸引力。<br>(3)朋友圈、公众号等社交互动平台：朋友圈是用户分享生活点滴、展示自我的重要平台。用户可以通过发布文字、图片、视频等内容，与好友进行互动和交流，增强了社交的吸引力。公众号为用户提供了丰富的资讯和服务，用户可以关注自己感兴趣的公众号，获取有价值的内容，并通过留言、点赞等方式与公众号运营者进行互动。<br>三、个性化的设置和体验<br>(1)主题皮肤、聊天背景等个性化选项：微信提供了多种主题皮肤（第三方）和聊天背景供用户选择，用户可以根据自己的喜好进行设置，打造属于自己的个性化微信界面。这种个性化的设置能够让用户在使用微信时感到更加舒适和满意，增加了用户对微信的喜爱度和忠诚度。<br>(2)消息提醒、隐私设置等个性化功能：微信的消息提醒功能可以让用户根据自己的需求进行设置，避免被过多的消息打扰。同时，隐私设置功能也能够保护用户的个人信息安全，让用户在使用微信时更加放心。这些个性化的功能能够满足不同用户的需求，提高用户的使用体验和满意度。<br>综上所述，微信通过简洁直观的用户界面、丰富多样的交互方式和个性化的设置和体验，吸引用户进行交互，并在使用中得到满意和满足。因此在吸引力方面得分：20分。</p>
+<h4 id="容错能力"><a href="#容错能力" class="headerlink" title="容错能力"></a>容错能力</h4><p>以下是对微信容错能力的分析，分为优缺点：<br>一、优点<br>(1)消息撤回功能：允许用户在一定时间内撤回已发送的消息，这在发送错误内容、错别字或者不恰当的表达时非常有用，可以避免尴尬和误解。例如在工作群中误发了错误的信息，可以及时撤回并重新发送正确的内容。一定程度上减轻了用户因一时疏忽而产生的不良后果，提高了沟通的准确性和流畅性。<br>(2)网络异常处理：当网络出现问题时，微信会及时提示用户，并尝试自动重连。在网络不稳定的情况下，微信会缓存未发送成功的消息，待网络恢复后自动发送，确保信息不会丢失。例如在乘坐地铁等网络信号不好的地方，用户不必担心消息发送失败，提高了使用的可靠性。<br>(3)操作提示明确：在进行一些关键操作时，如删除聊天记录、退出群组等，微信会弹出明确的提示框，让用户确认操作，避免误操作。例如在删除重要的聊天记录前，提示用户谨慎操作，防止因误触而导致数据丢失。<br>二、缺点<br>(1)撤回时间有限：微信消息撤回的时间限制相对较短，只有两分钟。在某些情况下，用户可能在两分钟后才发现错误，此时无法撤回消息，可能会造成一些不良影响。<br>比如在发送了重要的工作信息后，过了一段时间才发现有错误，但已经无法撤回修正。<br>(2)部分操作不可逆：一些操作一旦执行就无法恢复，如删除好友。如果用户误删了好友，需要重新搜索添加，过程较为繁琐。而且在删除好友时，没有更多的确认步骤或恢复途径，容易给用户带来不便。<br>综上所述，微信在消息撤回、网络异常处理和操作提示等方面表现较为出色，为用户提供了一定的容错保障。但是，撤回时间有限、部分操作不可逆等问题也在一定程度上影响了其容错能力的进一步提升。因此在容错能力方面得分，12分。</p>
+<h4 id="易于学习"><a href="#易于学习" class="headerlink" title="易于学习"></a>易于学习</h4><p>以下是对微信易于学习方面的分析，分为优缺点：<br>一、优点<br>(1)简洁直观的界面设计：微信的界面布局清晰，功能模块划分明确。主界面上的聊天列表、通讯录、发现和我四个板块一目了然，用户可以轻松找到所需的功能入口。例如，新用户在打开微信后，很容易就能识别出聊天、添加好友等常用功能的位置，降低了入门难度。<br>(2)引导式操作流程：在用户首次使用微信时，会有一些简单的引导提示，帮助用户了解基本的操作方法，如注册账号、添加好友等。当用户进行一些特定操作时，也会有相应的提示和引导，例如发送红包时会有明确的步骤说明，让用户能够快速上手。<br>(3)广泛的用户基础和社交传播：由于微信的用户群体非常庞大，新用户可以通过身边的朋友、家人等快速学习和了解微信的使用方法。用户之间的交流和分享也有助于新用户更快地掌握微信的各种功能，例如看到别人在朋友圈分享的内容，就可以学习到如何发布朋友圈等。<br>二、缺点<br>(1)功能繁多且部分功能隐藏较深：随着微信功能的不断扩展，一些功能可能隐藏在较深的层级中，新用户可能不容易发现。例如微信支付中的一些生活缴费功能，需要经过多个步骤才能找到。对于一些不常用功能的查找和学习可能会给用户带来一定的困扰。<br>(2)部分功能操作较为复杂：虽然微信的大部分功能操作比较简单，但也有一些功能的操作相对复杂，例如公众号的运营管理、小程序的开发等。这些功能对于普通用户来说，学习成本较高，可能需要花费较多的时间和精力去了解和掌握。<br>综上所述，微信在简洁直观的界面设计、引导式操作流程和广泛的用户基础等方面表现出色，为用户提供了良好的入门学习体验和持续学习的支持。但是，功能繁多且部分功能隐藏较深以及部分功能操作复杂等问题也在一定程度上影响了其易于学习的程度。因此在易于学习方面得分：16分。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>综上所述，通过对微信在有效性、效率、吸引力、容错能力和易于学习五个方面的分析，我们可以看出，微信作为一款广泛使用的社交和生活服务应用，在多方面都展现出卓越的可用性。它能够满足用户在沟通、办公、生活服务以及营销推广等多种场景中的需求，并通过持续优化和丰富功能，不断提升用户体验。然而，微信在容错能力和易于学习方面仍有一定改进空间，特别是在撤回时间限制和部分功能的隐藏深度方面。总体而言，微信凭借其高效、便捷的功能和用户友好的设计，成为了现代生活中不可或缺的一部分，展现了强大的可用性价值。<br>对于微信的可用性最终得分：85分。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BA%BA%E6%9C%BA%E4%BA%A4%E4%BA%92/" class="category-chain-item">人机交互</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E4%BA%BA%E6%9C%BA%E4%BA%A4%E4%BA%92/" class="print-no-link">#人机交互</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>微信的可用性分析论文</div>
+      <div>http://example.com/2024/11/05/微信的可用性分析论文/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年11月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/11/07/%E5%9C%A8%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BD%93%E4%B8%8B%E5%8C%96%E5%B7%A5%E8%A1%8C%E4%B8%9A%E7%9A%84%E4%BA%A7%E4%B8%9A%E5%8D%87%E7%BA%A7/" title="在大数据、人工智能当下化工行业的产业升级">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">在大数据、人工智能当下化工行业的产业升级</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/11/04/%E7%9F%A9%E9%98%B5%E7%AC%94%E8%AE%B0/" title="矩阵笔记">
+                        <span class="hidden-mobile">矩阵笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

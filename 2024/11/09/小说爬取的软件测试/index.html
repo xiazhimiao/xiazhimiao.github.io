@@ -1,0 +1,764 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/xhy.jpg">
+  <link rel="icon" href="/img/xhy.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="由于测试程序可正常运行，下面省略单元测试： 测试计划一、测试目标 验证程序从获取URL列表、处理网页内容到最终保存文件的整个流程能够顺利完成，确保各个函数之间协作正常，无数据丢失或错误。 确认程序在多线程环境下能够正确处理每个章节的网页内容下载、转换和保存操作，线程相关的计时和信息输出准确。 检查程序在面对各种异常情况（如网络异常、文件读取失败等）时的处理能力，确保程序不会因异常而崩溃，且能给出合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小说爬取的软件测试">
+<meta property="og:url" content="http://example.com/2024/11/09/%E5%B0%8F%E8%AF%B4%E7%88%AC%E5%8F%96%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:site_name" content="瀚海无江">
+<meta property="og:description" content="由于测试程序可正常运行，下面省略单元测试： 测试计划一、测试目标 验证程序从获取URL列表、处理网页内容到最终保存文件的整个流程能够顺利完成，确保各个函数之间协作正常，无数据丢失或错误。 确认程序在多线程环境下能够正确处理每个章节的网页内容下载、转换和保存操作，线程相关的计时和信息输出准确。 检查程序在面对各种异常情况（如网络异常、文件读取失败等）时的处理能力，确保程序不会因异常而崩溃，且能给出合">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-11-09T12:10:54.000Z">
+<meta property="article:modified_time" content="2025-05-20T07:40:28.832Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="软件测试">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>小说爬取的软件测试 - 瀚海无江</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>瀚海无江，思心似雪</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bj.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="小说爬取的软件测试"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-09 20:10" pubdate>
+          2024年11月9日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">小说爬取的软件测试</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>由于测试程序可正常运行，下面省略单元测试：</p>
+<h3 id="测试计划"><a href="#测试计划" class="headerlink" title="测试计划"></a>测试计划</h3><h4 id="一、测试目标"><a href="#一、测试目标" class="headerlink" title="一、测试目标"></a>一、测试目标</h4><ol>
+<li>验证程序从获取URL列表、处理网页内容到最终保存文件的整个流程能够顺利完成，确保各个函数之间协作正常，无数据丢失或错误。</li>
+<li>确认程序在多线程环境下能够正确处理每个章节的网页内容下载、转换和保存操作，线程相关的计时和信息输出准确。</li>
+<li>检查程序在面对各种异常情况（如网络异常、文件读取失败等）时的处理能力，确保程序不会因异常而崩溃，且能给出合理的错误提示。</li>
+<li>从用户角度出发，模拟实际使用场景，验证程序是否能完整地完成从指定小说网页抓取内容并转换保存为Markdown文件的功能，生成的文件内容符合预期且可正常阅读使用。</li>
+</ol>
+<h4 id="二、测试策略"><a href="#二、测试策略" class="headerlink" title="二、测试策略"></a>二、测试策略</h4><ol>
+<li><strong>集成测试</strong>：按照程序的主要流程进行测试，关注不同函数之间的调用和数据传递是否正确，重点检查整体流程的连贯性和正确性。例如，从获取小说首页URL开始，依次经过获取URL列表、读取CSS字典、处理每个章节的网页内容并最终保存为Markdown文件的整个过程。</li>
+<li><strong>功能测试</strong>：模拟实际用户使用场景，输入不同的有效小说网页URL及对应的CSS URL，运行程序，检查最终生成的Markdown文件内容是否完整、准确，格式是否符合要求，能否清晰呈现小说内容。同时验证程序对不同小说网页的通用性。</li>
+<li><strong>异常测试</strong>：故意制造各种异常情况，如传入错误的URL、模拟网络中断、删除必要文件等，检查程序在异常情况下的处理是否符合预期，如是否能正确提示错误信息，是否会导致程序崩溃等。</li>
+</ol>
+<h4 id="三、测试资源"><a href="#三、测试资源" class="headerlink" title="三、测试资源"></a>三、测试资源</h4><ol>
+<li><strong>人力资源</strong>：安排至少一名熟悉Python编程和测试的测试人员负责本次测试工作。</li>
+<li><strong>测试设备</strong>：普通PC机，具备网络连接功能，能够正常运行程序所需的环境。</li>
+<li><strong>测试工具</strong>：可使用一些网络模拟工具（如<code>pytest-responses</code>等，若有需要更精细地模拟网络请求和响应情况）辅助进行异常测试。</li>
+</ol>
+<h4 id="四、测试进度安排（忽略）"><a href="#四、测试进度安排（忽略）" class="headerlink" title="四、测试进度安排（忽略）"></a>四、测试进度安排（忽略）</h4><h5 id="第一阶段：测试准备（1天）"><a href="#第一阶段：测试准备（1天）" class="headerlink" title="第一阶段：测试准备（1天）"></a>第一阶段：测试准备（1天）</h5><ul>
+<li>熟悉程序代码逻辑和功能需求。</li>
+<li>搭建测试环境，确保所需的库（如<code>requests</code>、<code>BeautifulSoup</code>、<code>yaml</code>等）都能正确安装和运行。</li>
+</ul>
+<h5 id="第二阶段：集成测试（2天）"><a href="#第二阶段：集成测试（2天）" class="headerlink" title="第二阶段：集成测试（2天）"></a>第二阶段：集成测试（2天）</h5><ul>
+<li>编写集成测试用例，按照程序的主要流程进行测试，涵盖从获取URL到最终保存文件的完整流程。</li>
+<li>执行集成测试用例，重点关注函数之间的协作是否正常，数据传递是否准确，记录测试结果，对发现的问题及时反馈给开发人员进行修复。</li>
+</ul>
+<h5 id="第三阶段：功能测试（2天）"><a href="#第三阶段：功能测试（2天）" class="headerlink" title="第三阶段：功能测试（2天）"></a>第三阶段：功能测试（2天）</h5><ul>
+<li>模拟实际使用场景，选取多个不同的有效小说网页及对应的CSS URL，运行程序，检查最终生成的Markdown文件内容是否完整、准确。</li>
+<li>对生成的文件内容进行人工阅读检查，确保其能清晰呈现小说的文本内容，符合用户阅读需求。同时验证程序对不同小说网页的通用性。</li>
+</ul>
+<h5 id="第四阶段：异常测试（2天）"><a href="#第四阶段：异常测试（2天）" class="headerlink" title="第四阶段：异常测试（2天）"></a>第四阶段：异常测试（2天）</h5><ul>
+<li>故意制造各种异常情况，如传入错误的URL（包括小说首页URL、CSS URL等）、模拟网络中断、删除必要文件（如<code>urls.yaml</code>、<code>css_dict.yml</code>等）。</li>
+<li>检查程序在异常情况下的处理是否符合预期，如是否能正确提示错误信息，是否会导致程序崩溃等，记录测试结果。</li>
+</ul>
+<h5 id="第五阶段：测试总结（1天）"><a href="#第五阶段：测试总结（1天）" class="headerlink" title="第五阶段：测试总结（1天）"></a>第五阶段：测试总结（1天）</h5><ul>
+<li>汇总各个阶段的测试结果，计算缺陷率等指标。</li>
+<li>编写测试总结报告，对程序的质量进行评估，提出改进建议（如果有）。</li>
+</ul>
+<h3 id="测试设计"><a href="#测试设计" class="headerlink" title="测试设计"></a>测试设计</h3><h4 id="一、集成测试用例"><a href="#一、集成测试用例" class="headerlink" title="一、集成测试用例"></a>一、集成测试用例</h4><ul>
+<li><strong>测试用例1：完整流程测试</strong><ul>
+<li><strong>输入</strong>：一个有效的小说首页URL，如<code>https://www.qianbiwenxue.com/noval/41497273.html</code>和对应的<code>css_url</code>，如<code>https://www.qianbiwenxue.com/static/css/fonts.css?v=c560a92cd812e57bb8e2e8fdde5f1650</code>。</li>
+<li><strong>预期输出</strong>：在<code>无敌剑域</code>目录下成功生成所有章节对应的<code>.md</code>文件，且文件内容为处理后的Markdown格式内容，格式正确，无乱码等问题，同时控制台输出每个线程的下载完成信息以及最终是否全部成功的提示信息。</li>
+<li><strong>测试步骤</strong>：<ol>
+<li>按照程序的主流程，依次调用<code>read_urls</code>、<code>read_css_dict</code>等函数获取所需的数据。</li>
+<li>调用<code>process_html_pages</code>函数通过线程池处理每个章节的网页内容。</li>
+<li>检查<code>无敌剑域</code>目录下是否生成了所有预期的<code>.md</code>文件。</li>
+<li>读取每个生成的<code>.md</code>文件内容，检查其格式是否符合Markdown规范，并且内容与预期处理后的内容一致。</li>
+<li>检查控制台输出是否包含正确的线程下载完成信息以及最终是否全部成功的提示信息。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="二、功能测试用例"><a href="#二、功能测试用例" class="headerlink" title="二、功能测试用例"></a>二、功能测试用例</h4><ul>
+<li><strong>测试用例1：抓取小说内容并转换保存</strong><ul>
+<li><strong>输入</strong>：不同的有效小说首页URL及对应的CSS URL，例如：<ul>
+<li>小说1：<code>https://www.qianbiwenxue.com/noval/41497273.html</code>和<code>https://www.qianbiwenxue.com/static/css/fonts.css?v=c560a99cd812e57bb8e2e8fdde5f1650</code></li>
+<li>小说2：<code>https://www.anothernovel.com/noval/12345678.html</code>和<code>https://www.anothernovel.com/static/css/fonts.css?v=abcdef1234567890</code></li>
+</ul>
+</li>
+<li><strong>预期输出</strong>：在<code>无敌剑域</code>目录下分别成功生成对应小说所有章节的<code>.md</code>文件，且文件内容为处理后的Markdown格式内容，格式正确，无乱码等问题，生成的文件内容能够完整准确地呈现小说的文本内容（通过人工阅读对比）。</li>
+<li><strong>测试步骤</strong>：<ol>
+<li>运行程序，分别传入上述不同小说的首页URL和CSS URL。</li>
+<li>等待程序运行完成。</li>
+<li>检查<code>无敌剑域</code>目录下是否生成了所有预期的<code>.md</code>文件。</li>
+<li>随机抽取生成的<code>.md</code>文件，人工阅读其内容，检查是否能完整准确地呈现小说的相应章节内容。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="三、异常测试用例"><a href="#三、异常测试用例" class="headerlink" title="三、异常测试用例"></a>三、异常测试用例</h4><ul>
+<li><p><strong>测试用例1：传入无效小说首页URL</strong></p>
+<ul>
+<li><strong>输入</strong>：一个无效的小说首页URL，如<code>https://www.invalid_url.com</code>。</li>
+<li><strong>预期输出</strong>：程序能够正确处理异常，在控制台输出相应的错误信息，如<code>读取本地:urls</code>的相关错误提示，并且不会导致程序崩溃。</li>
+<li><strong>测试步骤</strong>：<ol>
+<li>运行程序，传入上述无效小说首页URL。</li>
+<li>观察控制台输出，检查是否有正确的错误提示，并且程序是否继续运行（未崩溃）。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><strong>测试用例2：传入无效CSS URL</strong></p>
+<ul>
+<li><strong>输入</strong>：一个无效的CSS URL，如<code>https://www.invalid_css_url.com</code>。</li>
+<li><strong>预期输出</strong>：程序能够正确处理异常，在控制台输出相应的错误信息，如<code>读取本地:css_dict</code>的相关错误提示，并且不会导致程序崩溃。</li>
+<li><strong>测试步骤</strong>：<ol>
+<li>运行程序，传入上述无效CSS URL。</li>
+<li>观察控制台输出，检查是否有正确的错误提示，并且程序是否继续运行（未崩溃）。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><strong>测试用例3：模拟网络中断</strong></p>
+<ul>
+<li><strong>输入</strong>：使用网络模拟工具在程序请求网页（如获取网页源码、读取CSS内容等）时模拟网络中断情况。</li>
+<li><strong>预期输出</strong>：程序能够正确处理异常，在控制台输出相应的错误信息，如网络请求失败的相关提示，并且不会导致程序崩溃。</li>
+<li><strong>测试步骤</strong>：<ol>
+<li>借助网络模拟工具，在程序执行到相关网络请求操作时，触发网络中断模拟。</li>
+<li>观察控制台输出，检查是否有正确的错误提示，并且程序是否继续运行（未崩溃）。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><strong>测试用例4：删除必要文件</strong></p>
+<ul>
+<li><strong>输入</strong>：在程序运行前，删除<code>urls.yaml</code>文件或<code>css_dict.yml</code>文件。</li>
+<li><strong>预期输出</strong>：程序能够正确处理异常，在控制台输出相应的错误信息，如文件读取失败的相关提示，并且不会导致程序崩溃。</li>
+<li><strong>测试步骤</strong>：<ol>
+<li>先删除<code>urls.yaml</code>文件（或<code>css_dict.yml</code>文件）。</li>
+<li>运行程序，传入有效的小说首页URL和CSS URL（假设其他条件正常）。</li>
+<li>观察控制台输出，检查是否有正确的错误提示，并且程序是否继续运行（未崩溃）。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" class="category-chain-item">软件测试</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" class="print-no-link">#软件测试</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>小说爬取的软件测试</div>
+      <div>http://example.com/2024/11/09/小说爬取的软件测试/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年11月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/12/07/%E7%BA%BF%E4%BB%A3%E7%AC%AC%E4%BA%94%E6%AC%A1/" title="线代第五次">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">线代第五次</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/11/08/%E4%B8%8D%E7%AB%99%E5%9C%A8%E6%82%AC%E5%B4%96%E8%BE%B9%EF%BC%8C%E6%80%8E%E4%B9%88%E6%89%8D%E8%83%BD%E7%9F%A5%E9%81%93%E8%87%AA%E5%B7%B1%E4%BC%9A%E6%8E%89%E4%B8%8B%E5%8E%BB/" title="不站在悬崖边，怎么才能知道自己会掉下去">
+                        <span class="hidden-mobile">不站在悬崖边，怎么才能知道自己会掉下去</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
