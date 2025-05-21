@@ -19,12 +19,12 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Git-常用命令 git全局设置信息 设置用户信息 1234git config --global user.name &quot;xiazhimiao&quot;git config --global user.email &quot;xiazhimiao@qq.com&quot;GIT  查看配置信息 123git config --listGIT   创建仓库  创建本地仓库 123git">
+    <meta name="description" content="Git-常用命令  git全局设置信息  设置用户信息 1234git config --global user.name &quot;xiazhimiao&quot;git config --global user.email &quot;xiazhimiao@qq.com&quot;GIT 查看配置信息 123git config --listGIT  创建仓库  创建本">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git常用命令">
 <meta property="og:url" content="http://example.com/2024/07/22/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="瀚海无江">
-<meta property="og:description" content="Git-常用命令 git全局设置信息 设置用户信息 1234git config --global user.name &quot;xiazhimiao&quot;git config --global user.email &quot;xiazhimiao@qq.com&quot;GIT  查看配置信息 123git config --listGIT   创建仓库  创建本地仓库 123git">
+<meta property="og:description" content="Git-常用命令  git全局设置信息  设置用户信息 1234git config --global user.name &quot;xiazhimiao&quot;git config --global user.email &quot;xiazhimiao@qq.com&quot;GIT 查看配置信息 123git config --listGIT  创建仓库  创建本">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-22T12:55:12.000Z">
 <meta property="article:modified_time" content="2025-05-20T06:57:27.958Z">
@@ -278,35 +278,31 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Git-常用命令"><a href="#Git-常用命令" class="headerlink" title="Git-常用命令"></a>Git-常用命令</h1><ol>
-<li><h4 id="git全局设置信息"><a href="#git全局设置信息" class="headerlink" title="git全局设置信息"></a>git全局设置信息</h4><blockquote>
+                <h1 id="git-常用命令">Git-常用命令</h1>
+<ol type="1">
+<li><h4 id="git全局设置信息">git全局设置信息</h4>
+<blockquote>
 <p>设置用户信息</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus">git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.name</span> <span class="hljs-string">&quot;xiazhimiao&quot;</span><br>git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.email</span> <span class="hljs-string">&quot;xiazhimiao@qq.com&quot;</span><br><br>GIT<br></code></pre></td></tr></table></figure>
-
 <p>查看配置信息</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lua">git <span class="hljs-built_in">config</span> <span class="hljs-comment">--list</span><br><br>GIT<br></code></pre></td></tr></table></figure>
-</blockquote>
-</li>
+</blockquote></li>
 <li><p>创建仓库</p>
 <blockquote>
 <p>创建本地仓库</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs csharp">git <span class="hljs-keyword">init</span><br><br>GIT<br></code></pre></td></tr></table></figure>
-
 <p>克隆远程仓库</p>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">git <span class="hljs-keyword">clone</span> <span class="hljs-title">[远程仓库地址.git</span>]<br><br>CRMSH<br></code></pre></td></tr></table></figure>
-
 <p>PS:仓库不能嵌套</p>
-</blockquote>
-</li>
+</blockquote></li>
 <li><p>本地仓库常用命令</p>
 <blockquote>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">git status  查看文件状态<br><span class="hljs-comment">-------------- * 是通配符</span><br>git <span class="hljs-keyword">add</span>   将文件的修改加入暂存区<br>git <span class="hljs-keyword">reset</span>   将暂存区的文件取消暂存或者切换到指定版本<br><span class="hljs-comment">-------------- [文件名] </span><br><span class="hljs-comment">-------------- --hard [版本号]</span><br>git <span class="hljs-keyword">commit</span>  将暂存区的文件修改提交到版本库<br><span class="hljs-comment">--------------  -m &quot;记录&quot; [文件名]</span><br>git <span class="hljs-keyword">log</span>     查看日志<br><br>GIT<br></code></pre></td></tr></table></figure>
-</blockquote>
-</li>
+</blockquote></li>
 <li><p>远程仓库操作</p>
 <blockquote>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">git remote     查看远程仓库<br>--------------  -v   查看远程仓库地址<br>git remote add 添加远程仓库<br>-------------- origin [远程仓库地址]<br>git <span class="hljs-keyword">clone</span>      <span class="hljs-title">从远程仓库克隆</span><br><span class="hljs-title">-------------- [url</span>]<br>git pull       从远程仓库拉取<br>-------------- origin <span class="hljs-keyword">master</span><br><span class="hljs-title">git</span> push       推送到远程仓库<br>-------------- origin <span class="hljs-keyword">master</span><br><br><span class="hljs-title">GIT</span><br></code></pre></td></tr></table></figure></blockquote>
-</li>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">git remote     查看远程仓库<br>--------------  -v   查看远程仓库地址<br>git remote add 添加远程仓库<br>-------------- origin [远程仓库地址]<br>git <span class="hljs-keyword">clone</span>      <span class="hljs-title">从远程仓库克隆</span><br><span class="hljs-title">-------------- [url</span>]<br>git pull       从远程仓库拉取<br>-------------- origin <span class="hljs-keyword">master</span><br><span class="hljs-title">git</span> push       推送到远程仓库<br>-------------- origin <span class="hljs-keyword">master</span><br><br><span class="hljs-title">GIT</span><br></code></pre></td></tr></table></figure>
+</blockquote></li>
 </ol>
 
                 

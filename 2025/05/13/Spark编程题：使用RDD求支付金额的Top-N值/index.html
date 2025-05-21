@@ -19,12 +19,12 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Spark 编程题：使用 RDD 求支付金额的 Top N 值一、题目要求使用 Spark RDD 从给定的支付数据中找出支付金额（payment 字段）最高的前 5 个值，并按降序排列输出。数据格式为逗号分隔的字符串，其中第三个字段是支付金额。具体要求如下：  从 HDFS 或本地文件系统读取数据 过滤掉无效数据行 提取 payment 字段 转换为键值对形式 按 payment 值降序排序 输">
+    <meta name="description" content="Spark 编程题：使用 RDD 求支付金额的 Top N 值 一、题目要求 使用 Spark RDD 从给定的支付数据中找出支付金额（payment 字段）最高的前 5 个值，并按降序排列输出。数据格式为逗号分隔的字符串，其中第三个字段是支付金额。具体要求如下：  从 HDFS 或本地文件系统读取数据 过滤掉无效数据行 提取 payment 字段 转换为键值对形式 按 pa">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark编程题：使用RDD求支付金额的Top N值">
 <meta property="og:url" content="http://example.com/2025/05/13/Spark%E7%BC%96%E7%A8%8B%E9%A2%98%EF%BC%9A%E4%BD%BF%E7%94%A8RDD%E6%B1%82%E6%94%AF%E4%BB%98%E9%87%91%E9%A2%9D%E7%9A%84Top-N%E5%80%BC/index.html">
 <meta property="og:site_name" content="瀚海无江">
-<meta property="og:description" content="Spark 编程题：使用 RDD 求支付金额的 Top N 值一、题目要求使用 Spark RDD 从给定的支付数据中找出支付金额（payment 字段）最高的前 5 个值，并按降序排列输出。数据格式为逗号分隔的字符串，其中第三个字段是支付金额。具体要求如下：  从 HDFS 或本地文件系统读取数据 过滤掉无效数据行 提取 payment 字段 转换为键值对形式 按 payment 值降序排序 输">
+<meta property="og:description" content="Spark 编程题：使用 RDD 求支付金额的 Top N 值 一、题目要求 使用 Spark RDD 从给定的支付数据中找出支付金额（payment 字段）最高的前 5 个值，并按降序排列输出。数据格式为逗号分隔的字符串，其中第三个字段是支付金额。具体要求如下：  从 HDFS 或本地文件系统读取数据 过滤掉无效数据行 提取 payment 字段 转换为键值对形式 按 pa">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2025/05/13/Spark%E7%BC%96%E7%A8%8B%E9%A2%98%EF%BC%9A%E4%BD%BF%E7%94%A8RDD%E6%B1%82%E6%94%AF%E4%BB%98%E9%87%91%E9%A2%9D%E7%9A%84Top-N%E5%80%BC/image-20250513175857387.png">
 <meta property="article:published_time" content="2025-05-13T09:45:26.000Z">
@@ -236,7 +236,7 @@
         
         
         
-          14 分钟
+          15 分钟
         
       </span>
     
@@ -278,8 +278,13 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Spark-编程题：使用-RDD-求支付金额的-Top-N-值"><a href="#Spark-编程题：使用-RDD-求支付金额的-Top-N-值" class="headerlink" title="Spark 编程题：使用 RDD 求支付金额的 Top N 值"></a>Spark 编程题：使用 RDD 求支付金额的 Top N 值</h1><h2 id="一、题目要求"><a href="#一、题目要求" class="headerlink" title="一、题目要求"></a>一、题目要求</h2><p>使用 Spark RDD 从给定的支付数据中找出支付金额（payment 字段）最高的前 5 个值，并按降序排列输出。数据格式为逗号分隔的字符串，其中第三个字段是支付金额。具体要求如下：</p>
-<ol>
+                <h1 id="spark-编程题使用-rdd-求支付金额的-top-n-值">Spark 编程题：使用
+RDD 求支付金额的 Top N 值</h1>
+<h2 id="一题目要求">一、题目要求</h2>
+<p>使用 Spark RDD 从给定的支付数据中找出支付金额（payment 字段）最高的前
+5
+个值，并按降序排列输出。数据格式为逗号分隔的字符串，其中第三个字段是支付金额。具体要求如下：</p>
+<ol type="1">
 <li>从 HDFS 或本地文件系统读取数据</li>
 <li>过滤掉无效数据行</li>
 <li>提取 payment 字段</li>
@@ -289,68 +294,107 @@
 </ol>
 <p>测试数据如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">&quot;1,Alice,50,Food&quot;,<br>&quot;2,Bob,60,Electronics&quot;,<br>&quot;3,Charlie,788,Clothing&quot;,<br>&quot;4,David,60,Books&quot;,<br>&quot;5,Eve,120,Food&quot;,<br>&quot;6,Frank,95,Electronics&quot;,<br>&quot;7,Grace,200,Books&quot;,<br>&quot;,,,&quot;,  // 无效数据<br>&quot;8,Hank,150,Clothing&quot;,<br>&quot;9,Ivy,300,Electronics&quot;,<br>&quot;10,Jack,250,Food&quot;<br></code></pre></td></tr></table></figure>
-
-<h2 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h2><ol>
-<li><strong>数据读取</strong>：利用 Spark 的<code>textFile</code>方法从 HDFS 或本地文件系统读取数据文件。</li>
+<h2 id="二解题思路">二、解题思路</h2>
+<ol type="1">
+<li><strong>数据读取</strong>：利用 Spark 的<code>textFile</code>方法从
+HDFS 或本地文件系统读取数据文件。</li>
 <li><strong>数据清洗</strong>：对读取的数据进行处理，通过字符串分割、条件判断等操作，过滤掉无效数据行。</li>
 <li><strong>字段提取与转换</strong>：提取支付金额字段，并将数据转换为键值对形式，方便后续排序操作。</li>
 <li><strong>排序</strong>：使用<code>sortBy</code>方法按照支付金额进行降序排序。</li>
-<li><strong>结果输出</strong>：选取排序后的数据中的前 5 条记录，输出其排名和支付金额。</li>
+<li><strong>结果输出</strong>：选取排序后的数据中的前 5
+条记录，输出其排名和支付金额。</li>
 </ol>
-<h2 id="三、详细步骤"><a href="#三、详细步骤" class="headerlink" title="三、详细步骤"></a>三、详细步骤</h2><h3 id="3-1-准备测试数据"><a href="#3-1-准备测试数据" class="headerlink" title="3.1 准备测试数据"></a>3.1 准备测试数据</h3><p>在本地创建一个 CSV 格式的文件，用于存储测试数据。在命令行中执行以下命令：</p>
+<h2 id="三详细步骤">三、详细步骤</h2>
+<h3 id="准备测试数据">3.1 准备测试数据</h3>
+<p>在本地创建一个 CSV
+格式的文件，用于存储测试数据。在命令行中执行以下命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> &gt; payment_data.csv &lt;&lt;<span class="hljs-string">EOF</span><br><span class="hljs-string">1,Alice,50,Food</span><br><span class="hljs-string">2,Bob,60,Electronics</span><br><span class="hljs-string">3,Charlie,788,Clothing</span><br><span class="hljs-string">4,David,60,Books</span><br><span class="hljs-string">5,Eve,120,Food</span><br><span class="hljs-string">6,Frank,95,Electronics</span><br><span class="hljs-string">7,Grace,200,Books</span><br><span class="hljs-string">,,,</span><br><span class="hljs-string">8,Hank,150,Clothing</span><br><span class="hljs-string">9,Ivy,300,Electronics</span><br><span class="hljs-string">10,Jack,250,Food</span><br><span class="hljs-string">EOF</span><br></code></pre></td></tr></table></figure>
-
 <p>上述命令使用<code>cat &gt;</code>创建一个名为<code>payment_data.csv</code>的文件，并将测试数据写入其中。完成后，可以使用<code>cat payment_data.csv</code>命令查看文件内容，确认数据写入正确。</p>
-<h3 id="3-2-启动-HDFS"><a href="#3-2-启动-HDFS" class="headerlink" title="3.2 启动 HDFS"></a>3.2 启动 HDFS</h3><p>如果计划将数据存储在 HDFS 上，需要先确保 HDFS 服务正常启动。在 Hadoop 环境中，执行以下命令启动 HDFS：</p>
+<h3 id="启动-hdfs">3.2 启动 HDFS</h3>
+<p>如果计划将数据存储在 HDFS 上，需要先确保 HDFS 服务正常启动。在 Hadoop
+环境中，执行以下命令启动 HDFS：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">start-dfs.sh<br></code></pre></td></tr></table></figure>
-
 <p>启动完成后，可以使用<code>jps</code>命令查看进程，确认<code>NameNode</code>和<code>DataNode</code>进程已经正常运行。</p>
-<h3 id="3-3-将数据上传至-HDFS"><a href="#3-3-将数据上传至-HDFS" class="headerlink" title="3.3 将数据上传至 HDFS"></a>3.3 将数据上传至 HDFS</h3><p>在 HDFS 启动后，创建存储数据的目录，并将本地的测试数据文件上传至 HDFS。执行以下命令：</p>
+<h3 id="将数据上传至-hdfs">3.3 将数据上传至 HDFS</h3>
+<p>在 HDFS 启动后，创建存储数据的目录，并将本地的测试数据文件上传至
+HDFS。执行以下命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">hdfs dfs -<span class="hljs-built_in">mkdir</span> -p /user/hadoop/data<br>hdfs dfs -put payment_data.csv /user/hadoop/data/<br></code></pre></td></tr></table></figure>
-
-<p>上述命令首先在 HDFS 中创建了<code>/user/hadoop/data</code>目录（如果目录不存在），然后将本地的<code>payment_data.csv</code>文件上传至该目录。</p>
+<p>上述命令首先在 HDFS
+中创建了<code>/user/hadoop/data</code>目录（如果目录不存在），然后将本地的<code>payment_data.csv</code>文件上传至该目录。</p>
 <p>上传完成后，可以使用以下命令验证数据是否成功上传：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">hdfs dfs -<span class="hljs-built_in">ls</span> /user/hadoop/data/<br>hdfs dfs -<span class="hljs-built_in">cat</span> /user/hadoop/data/payment_data.csv<br></code></pre></td></tr></table></figure>
-
 <p><code>hdfs dfs -ls</code>命令用于列出目录下的文件，<code>hdfs dfs -cat</code>命令用于查看文件内容。</p>
-<h3 id="3-4-编写-Spark-代码"><a href="#3-4-编写-Spark-代码" class="headerlink" title="3.4 编写 Spark 代码"></a>3.4 编写 Spark 代码</h3><p>使用文本编辑器（如<code>vi</code>或<code>vim</code>）创建一个 Python 文件，命名为<code>top_n_payments.py</code>，并编写以下代码：</p>
+<h3 id="编写-spark-代码">3.4 编写 Spark 代码</h3>
+<p>使用文本编辑器（如<code>vi</code>或<code>vim</code>）创建一个 Python
+文件，命名为<code>top_n_payments.py</code>，并编写以下代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-keyword">from</span> pyspark <span class="hljs-keyword">import</span> SparkContext, SparkConf<br><br><span class="hljs-comment"># 初始化SparkContext</span><br>conf = SparkConf().setAppName(<span class="hljs-string">&quot;TopNPayments&quot;</span>)<br>sc = SparkContext(conf=conf)<br><br><span class="hljs-comment"># 读取HDFS数据，需根据实际情况修改路径</span><br>file_path = <span class="hljs-string">&quot;hdfs://localhost:9000/user/hadoop/data/payment_data.csv&quot;</span><br><br><span class="hljs-comment"># 处理数据</span><br>payments_rdd = sc.textFile(file_path) \<br>    .<span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> line: line.strip().split(<span class="hljs-string">&#x27;,&#x27;</span>)) \<br>    .<span class="hljs-built_in">filter</span>(<span class="hljs-keyword">lambda</span> parts: <span class="hljs-built_in">len</span>(parts) &gt;= <span class="hljs-number">3</span> <span class="hljs-keyword">and</span> parts[<span class="hljs-number">0</span>] <span class="hljs-keyword">and</span> parts[<span class="hljs-number">2</span>]) \<br>    .<span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> parts: (<span class="hljs-built_in">int</span>(parts[<span class="hljs-number">0</span>]), <span class="hljs-built_in">float</span>(parts[<span class="hljs-number">2</span>]))) \<br>    .sortBy(<span class="hljs-keyword">lambda</span> x: x[<span class="hljs-number">1</span>], ascending=<span class="hljs-literal">False</span>) \<br>    .take(<span class="hljs-number">5</span>)<br><br><span class="hljs-comment"># 输出结果</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;排名\t支付金额&quot;</span>)<br><span class="hljs-keyword">for</span> rank, (user_id, amount) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(payments_rdd, <span class="hljs-number">1</span>):<br>    <span class="hljs-comment"># 使用 str.format() 替代 f-strings，兼容Python 2.x和3.x</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;&#125;\t&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(rank, amount))<br><br><span class="hljs-comment"># 停止SparkContext</span><br>sc.stop()<br></code></pre></td></tr></table></figure>
-
 <p>代码说明：</p>
 <ul>
-<li><strong>初始化 SparkContext</strong>：通过<code>SparkConf</code>和<code>SparkContext</code>创建 Spark 应用程序的上下文，设置应用名称为<code>TopNPayments</code>。</li>
-<li><strong>数据读取</strong>：使用<code>sc.textFile</code>方法从 HDFS 路径读取数据文件。</li>
-<li>数据处理<ul>
+<li><strong>初始化
+SparkContext</strong>：通过<code>SparkConf</code>和<code>SparkContext</code>创建
+Spark 应用程序的上下文，设置应用名称为<code>TopNPayments</code>。</li>
+<li><strong>数据读取</strong>：使用<code>sc.textFile</code>方法从 HDFS
+路径读取数据文件。</li>
+<li>数据处理
+<ul>
 <li><code>map</code>方法将每一行数据按逗号分割成列表。</li>
-<li><code>filter</code>方法过滤掉数据不完整（字段数量不足 3 个）或关键字段为空的无效数据行。</li>
-<li>再次使用<code>map</code>方法将数据转换为键值对形式，键为用户 ID（转换为整数类型），值为支付金额（转换为浮点数类型）。</li>
+<li><code>filter</code>方法过滤掉数据不完整（字段数量不足 3
+个）或关键字段为空的无效数据行。</li>
+<li>再次使用<code>map</code>方法将数据转换为键值对形式，键为用户
+ID（转换为整数类型），值为支付金额（转换为浮点数类型）。</li>
 <li><code>sortBy</code>方法按照支付金额（值）进行降序排序。</li>
 <li><code>take</code>方法获取排序后数据的前 5 条记录。</li>
+</ul></li>
+<li><strong>结果输出</strong>：遍历前 5
+条记录，输出其排名和支付金额。</li>
+<li><strong>停止 SparkContext</strong>：在程序执行完毕后，停止 Spark
+应用程序的上下文。</li>
 </ul>
-</li>
-<li><strong>结果输出</strong>：遍历前 5 条记录，输出其排名和支付金额。</li>
-<li><strong>停止 SparkContext</strong>：在程序执行完毕后，停止 Spark 应用程序的上下文。</li>
-</ul>
-<h3 id="3-5-提交-Spark-作业"><a href="#3-5-提交-Spark-作业" class="headerlink" title="3.5 提交 Spark 作业"></a>3.5 提交 Spark 作业</h3><p>在命令行中执行以下命令提交 Spark 作业：</p>
+<h3 id="提交-spark-作业">3.5 提交 Spark 作业</h3>
+<p>在命令行中执行以下命令提交 Spark 作业：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">spark-submit --master <span class="hljs-built_in">local</span>[*] top_n_payments.py<br></code></pre></td></tr></table></figure>
-
-<p><code>--master local[*]</code>表示在本地模式下运行 Spark 作业，使用所有可用的 CPU 核心。执行命令后，Spark 会开始处理数据，并输出支付金额最高的前 5 个值及其排名。</p>
-<p><img src="/2025/05/13/Spark%E7%BC%96%E7%A8%8B%E9%A2%98%EF%BC%9A%E4%BD%BF%E7%94%A8RDD%E6%B1%82%E6%94%AF%E4%BB%98%E9%87%91%E9%A2%9D%E7%9A%84Top-N%E5%80%BC/image-20250513175857387.png" srcset="/img/loading.gif" lazyload alt="image-20250513175857387"></p>
-<h2 id="四、常见问题及解决方法"><a href="#四、常见问题及解决方法" class="headerlink" title="四、常见问题及解决方法"></a>四、常见问题及解决方法</h2><h3 id="4-1-数据读取失败"><a href="#4-1-数据读取失败" class="headerlink" title="4.1 数据读取失败"></a>4.1 数据读取失败</h3><p>如果出现数据读取失败的情况，可能原因如下：</p>
+<p><code>--master local[*]</code>表示在本地模式下运行 Spark
+作业，使用所有可用的 CPU 核心。执行命令后，Spark
+会开始处理数据，并输出支付金额最高的前 5 个值及其排名。</p>
+<figure>
+<img src="image-20250513175857387.png" srcset="/img/loading.gif" lazyload alt="image-20250513175857387" />
+<figcaption aria-hidden="true">image-20250513175857387</figcaption>
+</figure>
+<h2 id="四常见问题及解决方法">四、常见问题及解决方法</h2>
+<h3 id="数据读取失败">4.1 数据读取失败</h3>
+<p>如果出现数据读取失败的情况，可能原因如下：</p>
 <ul>
-<li><strong>文件路径错误</strong>：确保<code>file_path</code>变量中的 HDFS 路径与实际存储路径一致，检查 NameNode 地址和端口是否正确。</li>
-<li><strong>HDFS 服务未启动</strong>：使用<code>jps</code>命令检查<code>NameNode</code>进程是否正常运行，若未运行，需启动 HDFS 服务。</li>
-<li><strong>权限问题</strong>：确认运行 Spark 作业的用户有权限访问 HDFS 中的数据文件，可以通过<code>hdfs dfs -chmod</code>命令修改文件权限。</li>
+<li><strong>文件路径错误</strong>：确保<code>file_path</code>变量中的
+HDFS 路径与实际存储路径一致，检查 NameNode 地址和端口是否正确。</li>
+<li><strong>HDFS
+服务未启动</strong>：使用<code>jps</code>命令检查<code>NameNode</code>进程是否正常运行，若未运行，需启动
+HDFS 服务。</li>
+<li><strong>权限问题</strong>：确认运行 Spark 作业的用户有权限访问 HDFS
+中的数据文件，可以通过<code>hdfs dfs -chmod</code>命令修改文件权限。</li>
 </ul>
-<h3 id="4-2-代码语法错误"><a href="#4-2-代码语法错误" class="headerlink" title="4.2 代码语法错误"></a>4.2 代码语法错误</h3><p>如遇到<code>SyntaxError</code>错误，可能是由于 Python 版本不兼容导致。例如，代码中使用了 f-strings（Python 3.6+ 支持），而环境中的 Python 版本低于 3.6。此时可以将 f-strings 替换为<code>str.format()</code>或<code>%</code>格式化方法，或者升级 Python 版本到 3.6 及以上。</p>
-<h3 id="4-3-连接-HDFS-失败"><a href="#4-3-连接-HDFS-失败" class="headerlink" title="4.3 连接 HDFS 失败"></a>4.3 连接 HDFS 失败</h3><p>当出现连接 HDFS 失败的错误，如<code>java.net.ConnectException: Connection refused</code>，可参考以下解决方法：</p>
+<h3 id="代码语法错误">4.2 代码语法错误</h3>
+<p>如遇到<code>SyntaxError</code>错误，可能是由于 Python
+版本不兼容导致。例如，代码中使用了 f-strings（Python 3.6+
+支持），而环境中的 Python 版本低于 3.6。此时可以将 f-strings
+替换为<code>str.format()</code>或<code>%</code>格式化方法，或者升级
+Python 版本到 3.6 及以上。</p>
+<h3 id="连接-hdfs-失败">4.3 连接 HDFS 失败</h3>
+<p>当出现连接 HDFS
+失败的错误，如<code>java.net.ConnectException: Connection refused</code>，可参考以下解决方法：</p>
 <ul>
-<li><strong>检查 HDFS 服务状态</strong>：使用<code>start-dfs.sh</code>启动 HDFS 服务，并通过<code>jps</code>命令确认<code>NameNode</code>和<code>DataNode</code>进程正常运行。</li>
+<li><strong>检查 HDFS
+服务状态</strong>：使用<code>start-dfs.sh</code>启动 HDFS
+服务，并通过<code>jps</code>命令确认<code>NameNode</code>和<code>DataNode</code>进程正常运行。</li>
 <li><strong>查看日志文件</strong>：查看<code>NameNode</code>的日志文件（通常位于<code>$HADOOP_HOME/logs</code>目录下），获取详细的错误信息，根据提示进行问题排查。</li>
-<li><strong>检查防火墙和 SELinux</strong>：临时关闭防火墙和 SELinux 进行测试，若关闭后能正常连接，则需配置防火墙规则允许 HDFS 相关端口的访问。</li>
+<li><strong>检查防火墙和 SELinux</strong>：临时关闭防火墙和 SELinux
+进行测试，若关闭后能正常连接，则需配置防火墙规则允许 HDFS
+相关端口的访问。</li>
 <li><strong>检查配置文件</strong>：确认<code>core-site.xml</code>和<code>hdfs-site.xml</code>中的配置正确，尤其是<code>fs.defaultFS</code>和<code>dfs.namenode.http-address</code>等关键属性。</li>
 </ul>
-<p>通过以上详细的步骤和问题解决方法，希望能够帮助你顺利完成使用 Spark RDD 求支付金额 Top N 值的编程任务。在实际操作过程中，可能会遇到各种不同的情况，需要根据具体的错误提示和环境进行灵活处理 。</p>
+<p>通过以上详细的步骤和问题解决方法，希望能够帮助你顺利完成使用 Spark
+RDD 求支付金额 Top N
+值的编程任务。在实际操作过程中，可能会遇到各种不同的情况，需要根据具体的错误提示和环境进行灵活处理
+。</p>
 
                 
               </div>

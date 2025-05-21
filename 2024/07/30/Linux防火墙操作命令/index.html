@@ -19,12 +19,12 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="查看防火墙状态  123systemctl status firewalld 或者 firewall-cmd --stateLINUX   暂时关闭防火墙  123systemctl stop firewalldARDUINO   永久关闭防火墙(不建议操作)  123systemctl disable firewalldROUTEROS   开启防火墙  123systemctl start">
+    <meta name="description" content="查看防火墙状态  123systemctl status firewalld 或者 firewall-cmd --stateLINUX  暂时关闭防火墙  123systemctl stop firewalldARDUINO  永久关闭防火墙(不建议操作)  123systemctl disable firewalldROUTEROS  开启防火墙  123syst">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux防火墙操作命令_">
 <meta property="og:url" content="http://example.com/2024/07/30/Linux%E9%98%B2%E7%81%AB%E5%A2%99%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="瀚海无江">
-<meta property="og:description" content="查看防火墙状态  123systemctl status firewalld 或者 firewall-cmd --stateLINUX   暂时关闭防火墙  123systemctl stop firewalldARDUINO   永久关闭防火墙(不建议操作)  123systemctl disable firewalldROUTEROS   开启防火墙  123systemctl start">
+<meta property="og:description" content="查看防火墙状态  123systemctl status firewalld 或者 firewall-cmd --stateLINUX  暂时关闭防火墙  123systemctl stop firewalldARDUINO  永久关闭防火墙(不建议操作)  123systemctl disable firewalldROUTEROS  开启防火墙  123syst">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-30T12:05:46.000Z">
 <meta property="article:modified_time" content="2025-05-20T06:55:20.614Z">
@@ -279,48 +279,42 @@
             
               <div class="markdown-body">
                 
-                <ol>
+                <ol type="1">
 <li><p>查看防火墙状态</p>
 <blockquote>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lua">systemctl <span class="hljs-built_in">status</span> firewalld 或者 firewall-cmd <span class="hljs-comment">--state</span><br><br>LINUX<br></code></pre></td></tr></table></figure>
-</blockquote>
-</li>
+</blockquote></li>
 <li><p>暂时关闭防火墙</p>
 <blockquote>
 <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs arduino">systemctl stop firewalld<br><br>ARDUINO<br></code></pre></td></tr></table></figure>
-</blockquote>
-</li>
+</blockquote></li>
 <li><p>永久关闭防火墙(不建议操作)</p>
 <blockquote>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros">systemctl <span class="hljs-built_in">disable</span> firewalld<br><br>ROUTEROS<br></code></pre></td></tr></table></figure>
-</blockquote>
-</li>
+</blockquote></li>
 <li><p>开启防火墙</p>
 <blockquote>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">systemctl <span class="hljs-literal">start</span> firewalld<br><br>CRMSH<br></code></pre></td></tr></table></figure>
-</blockquote>
-</li>
+</blockquote></li>
 <li><p>开放指定端口</p>
 <blockquote>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros">firewall-cmd <span class="hljs-attribute">--zone</span>=public <span class="hljs-attribute">--add-port</span>=8080/tcp --permanent<br><br>ROUTEROS<br></code></pre></td></tr></table></figure>
-</blockquote>
-</li>
+</blockquote></li>
 <li><p>关闭指定端口</p>
 <blockquote>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros">firewall-cmd <span class="hljs-attribute">--zone</span>=public <span class="hljs-attribute">--remove-port</span>=8080/tcp --permanent<br><br>ROUTEROS<br></code></pre></td></tr></table></figure>
-</blockquote>
-</li>
+</blockquote></li>
 <li><p>立即生效(开启或关闭端口后需要执行的命令，重新加载)</p>
 <blockquote>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ada">firewall-cmd <span class="hljs-comment">--reload</span><br><br>ADA<br></code></pre></td></tr></table></figure>
-</blockquote>
-</li>
+</blockquote></li>
 <li><p>查看开放的端口</p>
 <blockquote>
-<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> <span class="hljs-literal">--</span><span class="hljs-comment">zone=public</span> <span class="hljs-literal">--</span><span class="hljs-comment">list</span><span class="hljs-literal">-</span><span class="hljs-comment">ports</span><br><br><span class="hljs-comment">BRAINFUCK</span><br></code></pre></td></tr></table></figure></blockquote>
-</li>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> <span class="hljs-literal">--</span><span class="hljs-comment">zone=public</span> <span class="hljs-literal">--</span><span class="hljs-comment">list</span><span class="hljs-literal">-</span><span class="hljs-comment">ports</span><br><br><span class="hljs-comment">BRAINFUCK</span><br></code></pre></td></tr></table></figure>
+</blockquote></li>
 </ol>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-number">1</span>、systemctl是管理Linux中服务的命令，可以对服务进行启动、停止、重启、查看状态等操作<br><span class="hljs-number">2</span>、firewall-<span class="hljs-keyword">cmd</span><span class="language-bash">是Linux中专门用于控制防火墙的命令</span><br><span class="hljs-number">3</span>、为了保证系统安全，服务器的防火墙不建议关闭<br></code></pre></td></tr></table></figure>
+<h3 id="注意">注意:</h3>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-number">1</span>、systemctl是管理Linux中服务的命令，可以对服务进行启动、停止、重启、查看状态等操作<br><span class="hljs-number">2</span>、firewall-<span class="hljs-keyword">cmd</span><span class="language-bash">是Linux中专门用于控制防火墙的命令</span><br><span class="hljs-number">3</span>、为了保证系统安全，服务器的防火墙不建议关闭<br></code></pre></td></tr></table></figure>
 
                 
               </div>
