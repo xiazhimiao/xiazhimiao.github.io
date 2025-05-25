@@ -1,0 +1,814 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/xhy.jpg">
+  <link rel="icon" href="/img/xhy.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="基于 Hutool 和 OpenCSV 的日历记事本系统开发实践 一、项目概述 本文记录一个基于 Java 的日历记事本系统开发过程，主要解决阳历与阴历日期管理、事件存储与查询、异常处理等问题，涉及 Hutool 工具库、OpenCSV 文件解析及设计模式的应用。  核心库版本  Hutool：5.8.38（日期处理与工具类） OpenCSV：5.7.0（CSV 文件读写）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于 Hutool 和 OpenCSV 的日历记事本系统开发">
+<meta property="og:url" content="http://example.com/2025/05/25/%E5%9F%BA%E4%BA%8E-Hutool-%E5%92%8C-OpenCSV-%E7%9A%84%E6%97%A5%E5%8E%86%E8%AE%B0%E4%BA%8B%E6%9C%AC%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:site_name" content="瀚海无江">
+<meta property="og:description" content="基于 Hutool 和 OpenCSV 的日历记事本系统开发实践 一、项目概述 本文记录一个基于 Java 的日历记事本系统开发过程，主要解决阳历与阴历日期管理、事件存储与查询、异常处理等问题，涉及 Hutool 工具库、OpenCSV 文件解析及设计模式的应用。  核心库版本  Hutool：5.8.38（日期处理与工具类） OpenCSV：5.7.0（CSV 文件读写）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-05-25T09:07:21.000Z">
+<meta property="article:modified_time" content="2025-05-25T09:26:23.149Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="OpenCSV">
+<meta property="article:tag" content="Hutool">
+<meta property="article:tag" content="观察者模式">
+<meta property="article:tag" content="策略模式">
+<meta property="article:tag" content="单例模式">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>基于 Hutool 和 OpenCSV 的日历记事本系统开发 - 瀚海无江</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>瀚海无江，思心似雪</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bj.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="基于 Hutool 和 OpenCSV 的日历记事本系统开发"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-25 17:07" pubdate>
+          2025年5月25日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          30 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">基于 Hutool 和 OpenCSV 的日历记事本系统开发</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="基于-hutool-和-opencsv-的日历记事本系统开发实践">基于 Hutool 和
+OpenCSV 的日历记事本系统开发实践</h1>
+<h2 id="一项目概述">一、项目概述</h2>
+<p>本文记录一个基于 Java
+的日历记事本系统开发过程，主要解决<strong>阳历与阴历日期管理、事件存储与查询、异常处理</strong>等问题，涉及
+Hutool 工具库、OpenCSV 文件解析及设计模式的应用。</p>
+<ul>
+<li>核心库版本
+<ul>
+<li>Hutool：5.8.38（日期处理与工具类）</li>
+<li>OpenCSV：5.7.0（CSV 文件读写）</li>
+<li>Apache Commons Lang3：3.17.0（通用工具类，OpenCSV 依赖）</li>
+</ul></li>
+</ul>
+<h2 id="二采用的设计模式">二、采用的设计模式</h2>
+<h3 id="单例模式singleton">1.
+<strong>单例模式（Singleton）</strong></h3>
+<ul>
+<li><p><strong>场景</strong>：<code>NotepadManager</code>类使用单例模式确保全局唯一实例。</p></li>
+<li><p>实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> NotepadManager instance;<br><span class="hljs-keyword">private</span> <span class="hljs-title function_">NotepadManager</span><span class="hljs-params">()</span> &#123;&#125; <span class="hljs-comment">// 私有化构造方法</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">synchronized</span> NotepadManager <span class="hljs-title function_">getInstance</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">if</span> (instance == <span class="hljs-literal">null</span>) &#123;<br>        instance = <span class="hljs-keyword">new</span> <span class="hljs-title class_">NotepadManager</span>();<br>    &#125;<br>    <span class="hljs-keyword">return</span> instance;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="策略模式strategy">2. <strong>策略模式（Strategy）</strong></h3>
+<ul>
+<li><p><strong>场景</strong>：定义<code>StorageStrategy</code>接口，实现类<code>CsvStorageStrategy</code>负责
+CSV 文件存储逻辑。</p></li>
+<li><p>接口定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">StorageStrategy</span> &#123;<br>    List&lt;Event&gt; <span class="hljs-title function_">loadEvents</span><span class="hljs-params">()</span>;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">saveEvents</span><span class="hljs-params">(List&lt;Event&gt; events)</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>优势</strong>：方便扩展其他存储方式（如
+JSON、数据库）。</p></li>
+</ul>
+<h3 id="观察者模式observer">3.
+<strong>观察者模式（Observer）</strong></h3>
+<ul>
+<li><p><strong>场景</strong>：<code>EventNotifier</code>类管理观察者，事件变更时（添加
+/ 修改 / 删除）触发通知。</p></li>
+<li><p>核心代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> List&lt;Observer&gt; observers = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">registerObserver</span><span class="hljs-params">(Observer observer)</span> &#123;<br>    observers.add(observer);<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">notifyObservers</span><span class="hljs-params">(String message)</span> &#123;<br>    observers.forEach(o -&gt; o.update(message));<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="三项目目录结构">三、项目目录结构</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">EventNotepad<br>├─ JRE System Library [JavaSE-22]  # Java 22运行时环境<br>├─ src<br>│  └─ com.calendar.notepad<br>│     ├─ Main.java                  # 主程序入口（控制台交互）<br>│     ├─ lunar<br>│     │  └─ LunarUtil.java          # 阴历工具类（阳历转阴历、农历键生成）<br>│     ├─ model<br>│     │  └─ Event.java              # 事件实体（标题、日期、内容）<br>│     ├─ observer<br>│     │  ├─ EventNotifier.java      # 事件通知器（观察者模式，管理事件变更通知）<br>│     │  └─ Observer.java           # 观察者接口（定义更新方法）<br>│     ├─ service<br>│     │  └─ NotepadManager.java     # 核心管理类（单例，事件增删改查、存储策略、阴历映射）<br>│     └─ strategy<br>│        ├─ CsvStorageStrategy.java # CSV存储实现（读写events.csv）<br>│        └─ StorageStrategy.java    # 存储策略接口（可扩展JSON、数据库等存储）<br>├─ Referenced Libraries             # IDE自动管理的依赖（如JRE库）<br>├─ lib                              # 第三方库（手动导入）<br>│  ├─ commons-lang3-3.17.0.jar     # Apache Commons Lang3（OpenCSV依赖）<br>│  ├─ hutool-all-5.8.38.jar        # Hutool（农历计算、日期工具）<br>│  └─ opencsv-5.7.0.jar            # OpenCSV（CSV文件读写）<br>└─ events.csv                       # 事件数据存储文件（CSV格式）<br></code></pre></td></tr></table></figure>
+<h2 id="四阳历转阴历功能实现">四、阳历转阴历功能实现</h2>
+<h3 id="依赖配置hutool-库">1. 依赖配置（Hutool 库）</h3>
+<p>注：本次代码编程时，考虑到客户可能不会maven，使用的是本地导入的Hutool。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- Maven依赖 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>cn.hutool<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>hutool-all<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>5.8.38<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h3 id="工具类lunarutil实现">2. 工具类<code>LunarUtil</code>实现</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.calendar.notepad.lunar;<br><br><span class="hljs-keyword">import</span> cn.hutool.core.date.ChineseDate;<br><span class="hljs-keyword">import</span> java.util.Date;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LunarUtil</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 阳历转阴历字符串（如：2025年四月初八）</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">solarToLunarString</span><span class="hljs-params">(Date solarDate)</span> &#123;<br>        <span class="hljs-keyword">if</span> (solarDate == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;无效日期&quot;</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">ChineseDate</span> <span class="hljs-variable">lunar</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChineseDate</span>(solarDate);<br>            <span class="hljs-keyword">return</span> lunar.getChineseYear() + <span class="hljs-string">&quot;年&quot;</span> <br>                 + lunar.getChineseMonthName() <br>                 + lunar.getChineseDay();<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            System.err.println(<span class="hljs-string">&quot;阴历转换失败: &quot;</span> + e.getMessage());<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;转换失败&quot;</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 生成阴历查询键（年-月-日）</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">getLunarKey</span><span class="hljs-params">(Date solarDate)</span> &#123;<br>        <span class="hljs-type">ChineseDate</span> <span class="hljs-variable">lunar</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChineseDate</span>(solarDate);<br>        <span class="hljs-keyword">return</span> lunar.getChineseYear() + <span class="hljs-string">&quot;-&quot;</span> <br>             + lunar.getMonth() + <span class="hljs-string">&quot;-&quot;</span> <br>             + lunar.getChineseDay();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="业务逻辑集成">3. 业务逻辑集成</h3>
+<ul>
+<li><p>在</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">NotepadManager</span><br></code></pre></td></tr></table></figure>
+<p>中维护阴历事件映射：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> Map&lt;String, List&lt;Event&gt;&gt; lunarEventMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">updateLunarEventMap</span><span class="hljs-params">(Event event)</span> &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> LunarUtil.getLunarKey(event.getDate());<br>    lunarEventMap.computeIfAbsent(key, k -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;()).add(event);<br>&#125;<br><br><span class="hljs-keyword">public</span> List&lt;Event&gt; <span class="hljs-title function_">queryByLunarDate</span><span class="hljs-params">(Date solarDate)</span> &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> LunarUtil.getLunarKey(solarDate);<br>    <span class="hljs-keyword">return</span> lunarEventMap.getOrDefault(key, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;());<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="五eclipse-导入本地-jar-包教程">五、Eclipse 导入本地 JAR
+包教程</h2>
+<h3 id="下载-jar-包">1. 下载 JAR 包</h3>
+<ul>
+<li><strong>OpenCSV</strong>：从<a
+target="_blank" rel="noopener" href="https://mvnrepository.com/artifact/com.opencsv/opencsv/5.7.0">Maven
+中央仓库</a>下载<code>opencsv-5.7.0.jar</code>。</li>
+<li><strong>Apache Commons
+Lang3</strong>：下载<code>commons-lang3-3.12.0.jar</code>。</li>
+</ul>
+<h3 id="添加到项目">2. 添加到项目</h3>
+<h4 id="步骤-1创建lib目录">步骤 1：创建<code>lib</code>目录</h4>
+<p>在 Eclipse 项目根目录右键 → <code>New Folder</code> →
+命名为<code>lib</code>。</p>
+<h4 id="步骤-2复制-jar-包">步骤 2：复制 JAR 包</h4>
+<p>将下载的 JAR 文件复制到<code>lib</code>目录中。</p>
+<h4 id="步骤-3配置构建路径">步骤 3：配置构建路径</h4>
+<ol type="1">
+<li>右键项目 → <code>Build Path</code> →
+<code>Configure Build Path</code>。</li>
+<li>在<code>Libraries</code>选项卡中，点击<code>Add JARs</code>。</li>
+<li>选择<code>lib</code>目录下的所有 JAR 包，点击<code>OK</code>。</li>
+</ol>
+<h4 id="验证">验证</h4>
+<ul>
+<li>导入语句生效（如<code>import com.opencsv.CSVReader;</code>）。</li>
+<li>项目无红叉错误。</li>
+</ul>
+<h2 id="六常见问题及解决方案">六、常见问题及解决方案</h2>
+<h3 id="依赖缺失问题">1. 依赖缺失问题</h3>
+<h4
+id="错误csvreader-cannot-be-resolved-to-a-type">错误：<code>CSVReader cannot be resolved to a type</code></h4>
+<ul>
+<li><strong>原因</strong>：未添加 OpenCSV 依赖。</li>
+<li><strong>解决</strong>：手动导入 JAR 包或添加 Maven 依赖。</li>
+</ul>
+<h4
+id="错误noclassdeffounderror-orgapachecommonslang3objectutils">错误：<code>NoClassDefFoundError: org/apache/commons/lang3/ObjectUtils</code></h4>
+<ul>
+<li><strong>原因</strong>：OpenCSV 依赖 Apache Commons Lang3。</li>
+<li><strong>解决</strong>：添加<code>commons-lang3</code>依赖。</li>
+</ul>
+<h3 id="日期解析异常">2. 日期解析异常</h3>
+<h4
+id="错误arrayindexoutofboundsexception">错误：<code>ArrayIndexOutOfBoundsException</code></h4>
+<ul>
+<li><strong>原因</strong>：Hutool
+处理非法日期（如<code>null</code>或超出范围的日期）。</li>
+<li>解决
+<ul>
+<li>在<code>CsvStorageStrategy</code>中验证日期格式（<code>yyyy-MM-dd</code>）。</li>
+<li>在<code>LunarUtil</code>中添加日期范围检查（如 1900-2100 年）。</li>
+</ul></li>
+</ul>
+<h3 id="ide-缓存问题">3. IDE 缓存问题</h3>
+<ul>
+<li><strong>错误</strong>：类已导入但仍提示未找到（如<code>Date cannot be resolved</code>）。</li>
+<li>解决
+<ul>
+<li>Eclipse：<code>Project → Clean</code>。</li>
+<li>IntelliJ
+IDEA：<code>File → Invalidate Caches / Restart</code>。</li>
+</ul></li>
+</ul>
+<h2 id="七源码展示">七、源码展示</h2>
+<h3 id="main.java-主程序入口控制台交互">Main.java #
+主程序入口（控制台交互）</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.calendar.notepad;<br><br><span class="hljs-keyword">import</span> com.calendar.notepad.lunar.LunarUtil;<br><span class="hljs-keyword">import</span> com.calendar.notepad.model.Event;<br><span class="hljs-keyword">import</span> com.calendar.notepad.observer.Observer;<br><span class="hljs-keyword">import</span> com.calendar.notepad.service.NotepadManager;<br><span class="hljs-keyword">import</span> com.calendar.notepad.strategy.CsvStorageStrategy;<br><span class="hljs-keyword">import</span> com.calendar.notepad.strategy.StorageStrategy;<br><span class="hljs-keyword">import</span> cn.hutool.core.date.DateUtil;<br><span class="hljs-keyword">import</span> java.util.Date;<br><span class="hljs-keyword">import</span> java.util.List;<br><span class="hljs-keyword">import</span> java.util.Scanner;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 主程序入口（使用Hutool优化）</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">NotepadManager</span> <span class="hljs-variable">manager</span> <span class="hljs-operator">=</span> NotepadManager.getInstance();<br>        <span class="hljs-type">StorageStrategy</span> <span class="hljs-variable">csvStrategy</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CsvStorageStrategy</span>();<br>        manager.setStorageStrategy(csvStrategy);<br>        manager.loadEvents();<br>        manager.registerObserver(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ConsoleObserver</span>());<br><br>        <span class="hljs-type">Scanner</span> <span class="hljs-variable">scanner</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Scanner</span>(System.in);<br><br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>            System.out.println(<span class="hljs-string">&quot;\n===== 日历记事本系统 =====&quot;</span>);<br>            System.out.println(<span class="hljs-string">&quot;1. 添加事件&quot;</span>);<br>            System.out.println(<span class="hljs-string">&quot;2. 修改事件&quot;</span>);<br>            System.out.println(<span class="hljs-string">&quot;3. 删除事件&quot;</span>);<br>            System.out.println(<span class="hljs-string">&quot;4. 查看事件列表&quot;</span>);<br>            System.out.println(<span class="hljs-string">&quot;5. 按阳历查询事件&quot;</span>);<br>            System.out.println(<span class="hljs-string">&quot;6. 按阴历查询事件&quot;</span>);<br>            System.out.println(<span class="hljs-string">&quot;7. 查看当月日期范围&quot;</span>);<br>            System.out.println(<span class="hljs-string">&quot;0. 退出&quot;</span>);<br>            System.out.print(<span class="hljs-string">&quot;请选择操作: &quot;</span>);<br><br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-type">int</span> <span class="hljs-variable">choice</span> <span class="hljs-operator">=</span> scanner.nextInt();<br>                scanner.nextLine(); <span class="hljs-comment">// 消耗换行符</span><br><br>                <span class="hljs-keyword">switch</span> (choice) &#123;<br>                    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>                        System.out.print(<span class="hljs-string">&quot;请输入事件标题: &quot;</span>);<br>                        <span class="hljs-type">String</span> <span class="hljs-variable">title</span> <span class="hljs-operator">=</span> scanner.nextLine();<br>                        System.out.print(<span class="hljs-string">&quot;请输入事件日期 (yyyy-MM-dd): &quot;</span>);<br>                        <span class="hljs-type">String</span> <span class="hljs-variable">dateStr</span> <span class="hljs-operator">=</span> scanner.nextLine();<br>                        System.out.print(<span class="hljs-string">&quot;请输入事件内容: &quot;</span>);<br>                        <span class="hljs-type">String</span> <span class="hljs-variable">content</span> <span class="hljs-operator">=</span> scanner.nextLine();<br><br>                        <span class="hljs-keyword">try</span> &#123;<br>                            <span class="hljs-type">Date</span> <span class="hljs-variable">date</span> <span class="hljs-operator">=</span> DateUtil.parse(dateStr);<br>                            manager.addEvent(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Event</span>(title, date, content));<br>                            System.out.println(<span class="hljs-string">&quot;事件添加成功!&quot;</span>);<br>                        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                            System.out.println(<span class="hljs-string">&quot;日期格式错误! 请使用 yyyy-MM-dd 格式&quot;</span>);<br>                        &#125;<br>                        <span class="hljs-keyword">break</span>;<br><br>                    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:<br>                        System.out.print(<span class="hljs-string">&quot;请输入要修改的事件标题: &quot;</span>);<br>                        <span class="hljs-type">String</span> <span class="hljs-variable">oldTitle</span> <span class="hljs-operator">=</span> scanner.nextLine();<br>                        <span class="hljs-type">Event</span> <span class="hljs-variable">oldEvent</span> <span class="hljs-operator">=</span> findEventByTitle(oldTitle, manager.getEventList());<br><br>                        <span class="hljs-keyword">if</span> (oldEvent != <span class="hljs-literal">null</span>) &#123;<br>                            System.out.print(<span class="hljs-string">&quot;请输入新的事件标题 (留空则不修改): &quot;</span>);<br>                            <span class="hljs-type">String</span> <span class="hljs-variable">newTitle</span> <span class="hljs-operator">=</span> scanner.nextLine();<br>                            <span class="hljs-keyword">if</span> (!newTitle.isEmpty()) oldEvent.setTitle(newTitle);<br><br>                            System.out.print(<span class="hljs-string">&quot;请输入新的事件日期 (yyyy-MM-dd, 留空则不修改): &quot;</span>);<br>                            <span class="hljs-type">String</span> <span class="hljs-variable">newDateStr</span> <span class="hljs-operator">=</span> scanner.nextLine();<br>                            <span class="hljs-keyword">if</span> (!newDateStr.isEmpty()) &#123;<br>                                <span class="hljs-keyword">try</span> &#123;<br>                                    <span class="hljs-type">Date</span> <span class="hljs-variable">newDate</span> <span class="hljs-operator">=</span> DateUtil.parse(newDateStr);<br>                                    oldEvent.setDate(newDate);<br>                                &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                                    System.out.println(<span class="hljs-string">&quot;日期格式错误!&quot;</span>);<br>                                &#125;<br>                            &#125;<br><br>                            System.out.print(<span class="hljs-string">&quot;请输入新的事件内容 (留空则不修改): &quot;</span>);<br>                            <span class="hljs-type">String</span> <span class="hljs-variable">newContent</span> <span class="hljs-operator">=</span> scanner.nextLine();<br>                            <span class="hljs-keyword">if</span> (!newContent.isEmpty()) oldEvent.setContent(newContent);<br><br>                            manager.updateEvent(oldEvent, oldEvent);<br>                            System.out.println(<span class="hljs-string">&quot;事件修改成功!&quot;</span>);<br>                        &#125; <span class="hljs-keyword">else</span> &#123;<br>                            System.out.println(<span class="hljs-string">&quot;未找到该事件!&quot;</span>);<br>                        &#125;<br>                        <span class="hljs-keyword">break</span>;<br><br>                    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<br>                        System.out.print(<span class="hljs-string">&quot;请输入要删除的事件标题: &quot;</span>);<br>                        <span class="hljs-type">String</span> <span class="hljs-variable">deleteTitle</span> <span class="hljs-operator">=</span> scanner.nextLine();<br>                        <span class="hljs-type">Event</span> <span class="hljs-variable">eventToDelete</span> <span class="hljs-operator">=</span> findEventByTitle(deleteTitle, manager.getEventList());<br><br>                        <span class="hljs-keyword">if</span> (eventToDelete != <span class="hljs-literal">null</span>) &#123;<br>                            manager.deleteEvent(eventToDelete);<br>                            System.out.println(<span class="hljs-string">&quot;事件删除成功!&quot;</span>);<br>                        &#125; <span class="hljs-keyword">else</span> &#123;<br>                            System.out.println(<span class="hljs-string">&quot;未找到该事件!&quot;</span>);<br>                        &#125;<br>                        <span class="hljs-keyword">break</span>;<br><br>                    <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:<br>                        System.out.println(<span class="hljs-string">&quot;\n===== 事件列表 =====&quot;</span>);<br>                        List&lt;Event&gt; allEvents = manager.getEventList();<br>                        <span class="hljs-keyword">if</span> (allEvents.isEmpty()) &#123;<br>                            System.out.println(<span class="hljs-string">&quot;暂无事件记录!&quot;</span>);<br>                        &#125; <span class="hljs-keyword">else</span> &#123;<br>                            <span class="hljs-keyword">for</span> (Event event : allEvents) &#123;<br>                                <span class="hljs-type">String</span> <span class="hljs-variable">lunarDate</span> <span class="hljs-operator">=</span> LunarUtil.solarToLunarString(event.getDate());<br>                                System.out.println(event + <span class="hljs-string">&quot; (阴历: &quot;</span> + lunarDate + <span class="hljs-string">&quot;)&quot;</span>);<br>                            &#125;<br>                        &#125;<br>                        <span class="hljs-keyword">break</span>;<br><br>                    <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:<br>                        System.out.print(<span class="hljs-string">&quot;请输入要查询的阳历日期 (yyyy-MM-dd): &quot;</span>);<br>                        <span class="hljs-type">String</span> <span class="hljs-variable">queryDateStr</span> <span class="hljs-operator">=</span> scanner.nextLine();<br>                        <span class="hljs-keyword">try</span> &#123;<br>                            <span class="hljs-type">Date</span> <span class="hljs-variable">queryDate</span> <span class="hljs-operator">=</span> DateUtil.parse(queryDateStr);<br>                            List&lt;Event&gt; eventsOnDate = manager.queryBySolarDate(queryDate);<br>                            printEvents(<span class="hljs-string">&quot;阳历 &quot;</span> + queryDateStr, eventsOnDate);<br>                        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                            System.out.println(<span class="hljs-string">&quot;日期格式错误!&quot;</span>);<br>                        &#125;<br>                        <span class="hljs-keyword">break</span>;<br><br>                    <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>:<br>                        System.out.println(<span class="hljs-string">&quot;\n===== 按阴历查询事件 =====&quot;</span>);<br>                        System.out.println(<span class="hljs-string">&quot;方式1: 输入阳历日期自动转换为阴历&quot;</span>);<br>                        System.out.println(<span class="hljs-string">&quot;方式2: 直接输入阴历信息&quot;</span>);<br>                        System.out.print(<span class="hljs-string">&quot;请选择查询方式 (1/2): &quot;</span>);<br>                        <span class="hljs-type">int</span> <span class="hljs-variable">queryType</span> <span class="hljs-operator">=</span> scanner.nextInt();<br>                        scanner.nextLine(); <span class="hljs-comment">// 消耗换行符</span><br><br>                        <span class="hljs-keyword">if</span> (queryType == <span class="hljs-number">1</span>) &#123;<br>                            System.out.print(<span class="hljs-string">&quot;请输入阳历日期 (yyyy-MM-dd): &quot;</span>);<br>                            <span class="hljs-type">String</span> <span class="hljs-variable">solarDateStr</span> <span class="hljs-operator">=</span> scanner.nextLine();<br>                            <span class="hljs-keyword">try</span> &#123;<br>                                <span class="hljs-type">Date</span> <span class="hljs-variable">solarDate</span> <span class="hljs-operator">=</span> DateUtil.parse(solarDateStr);<br>                                List&lt;Event&gt; events = manager.queryByLunarDate(solarDate);<br>                                <span class="hljs-type">String</span> <span class="hljs-variable">lunarDateStr</span> <span class="hljs-operator">=</span> LunarUtil.solarToLunarString(solarDate);<br>                                printEvents(<span class="hljs-string">&quot;阴历 &quot;</span> + lunarDateStr, events);<br>                            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                                System.out.println(<span class="hljs-string">&quot;日期格式错误!&quot;</span>);<br>                            &#125;<br>                        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (queryType == <span class="hljs-number">2</span>) &#123;<br>                            System.out.print(<span class="hljs-string">&quot;请输入阴历年份: &quot;</span>);<br>                            <span class="hljs-type">int</span> <span class="hljs-variable">lunarYear</span> <span class="hljs-operator">=</span> scanner.nextInt();<br>                            System.out.print(<span class="hljs-string">&quot;请输入阴历月份: &quot;</span>);<br>                            <span class="hljs-type">int</span> <span class="hljs-variable">lunarMonth</span> <span class="hljs-operator">=</span> scanner.nextInt();<br>                            System.out.print(<span class="hljs-string">&quot;请输入阴历日期 (如: 初一): &quot;</span>);<br>                            <span class="hljs-type">String</span> <span class="hljs-variable">lunarDay</span> <span class="hljs-operator">=</span> scanner.next();<br>                            scanner.nextLine(); <span class="hljs-comment">// 消耗换行符</span><br><br>                            List&lt;Event&gt; events = manager.queryByLunarDate(lunarYear, lunarMonth, lunarDay);<br>                            printEvents(<span class="hljs-string">&quot;阴历 &quot;</span> + lunarYear + <span class="hljs-string">&quot;年&quot;</span> + lunarMonth + <span class="hljs-string">&quot;月&quot;</span> + lunarDay, events);<br>                        &#125; <span class="hljs-keyword">else</span> &#123;<br>                            System.out.println(<span class="hljs-string">&quot;无效的选择!&quot;</span>);<br>                        &#125;<br>                        <span class="hljs-keyword">break</span>;<br><br>                    <span class="hljs-keyword">case</span> <span class="hljs-number">7</span>:<br>                        <span class="hljs-type">Date</span> <span class="hljs-variable">today</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>                        <span class="hljs-type">String</span> <span class="hljs-variable">lunarToday</span> <span class="hljs-operator">=</span> LunarUtil.getFullLunarInfo(today);<br>                        System.out.println(<span class="hljs-string">&quot;\n===== 当月日期范围 =====&quot;</span>);<br>                        System.out.println(<span class="hljs-string">&quot;今日阳历日期: &quot;</span> + DateUtil.format(today, <span class="hljs-string">&quot;yyyy-MM-dd&quot;</span>));<br>                        System.out.println(<span class="hljs-string">&quot;今日阴历日期: &quot;</span> + lunarToday);<br>                        <span class="hljs-keyword">break</span>;<br><br>                    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:<br>                        System.out.println(<span class="hljs-string">&quot;感谢使用日历记事本系统，再见!&quot;</span>);<br>                        scanner.close();<br>                        System.exit(<span class="hljs-number">0</span>);<br><br>                    <span class="hljs-keyword">default</span>:<br>                        System.out.println(<span class="hljs-string">&quot;无效的选择，请重新输入!&quot;</span>);<br>                &#125;<br>            &#125; <span class="hljs-keyword">catch</span> (java.util.InputMismatchException e) &#123;<br>                System.out.println(<span class="hljs-string">&quot;输入无效，请输入数字!&quot;</span>);<br>                scanner.nextLine(); <span class="hljs-comment">// 清除错误输入</span><br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Event <span class="hljs-title function_">findEventByTitle</span><span class="hljs-params">(String title, List&lt;Event&gt; events)</span> &#123;<br>        <span class="hljs-keyword">for</span> (Event event : events) &#123;<br>            <span class="hljs-keyword">if</span> (event.getTitle().equals(title)) &#123;<br>                <span class="hljs-keyword">return</span> event;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">printEvents</span><span class="hljs-params">(String dateDescription, List&lt;Event&gt; events)</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;\n===== &quot;</span> + dateDescription + <span class="hljs-string">&quot; 的事件 =====&quot;</span>);<br>        <span class="hljs-keyword">if</span> (events.isEmpty()) &#123;<br>            System.out.println(<span class="hljs-string">&quot;该日期没有事件记录!&quot;</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            events.forEach(System.out::println);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ConsoleObserver</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Observer</span> &#123;<br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">update</span><span class="hljs-params">(String message)</span> &#123;<br>            System.out.println(<span class="hljs-string">&quot;[通知] &quot;</span> + message);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="lunarutil.java-阴历工具类阳历转阴历农历键生成">LunarUtil.java #
+阴历工具类（阳历转阴历、农历键生成）</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.calendar.notepad.lunar;<br><br><span class="hljs-keyword">import</span> cn.hutool.core.date.ChineseDate;<br><span class="hljs-keyword">import</span> cn.hutool.core.date.DateUtil;<br><span class="hljs-keyword">import</span> java.util.Date;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LunarUtil</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 阳历转阴历字符串（如：2025年四月初八）</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">solarToLunarString</span><span class="hljs-params">(Date solarDate)</span> &#123;<br>        <span class="hljs-type">ChineseDate</span> <span class="hljs-variable">lunar</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChineseDate</span>(solarDate);<br>        <span class="hljs-keyword">return</span> lunar.getChineseYear() + <span class="hljs-string">&quot;年&quot;</span> + <br>               lunar.getChineseMonthName() + <br>               lunar.getChineseDay();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取阴历年份</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getLunarYear</span><span class="hljs-params">(Date solarDate)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChineseDate</span>(solarDate).getChineseYear();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取阴历月份（数字，1-12）</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getLunarMonth</span><span class="hljs-params">(Date solarDate)</span> &#123;<br>        <span class="hljs-comment">// 注意：Hutool的getChineseMonth()返回的是中文月份名（如&quot;正月&quot;）</span><br>        <span class="hljs-comment">// 这里需要使用getMonth()获取数字月份（1-12）</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChineseDate</span>(solarDate).getMonth();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取阴历日期（1-30）</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">getLunarDay</span><span class="hljs-params">(Date solarDate)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChineseDate</span>(solarDate).getChineseDay();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取阴历关键信息（用于查询）</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">getLunarKey</span><span class="hljs-params">(Date solarDate)</span> &#123;<br>        <span class="hljs-type">ChineseDate</span> <span class="hljs-variable">lunar</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChineseDate</span>(solarDate);<br>        <span class="hljs-keyword">return</span> lunar.getChineseYear() + <span class="hljs-string">&quot;-&quot;</span> + <br>               lunar.getMonth() + <span class="hljs-string">&quot;-&quot;</span> + <br>               lunar.getChineseDay();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取完整阴历描述（带节日）</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">getFullLunarInfo</span><span class="hljs-params">(Date solarDate)</span> &#123;<br>        <span class="hljs-type">ChineseDate</span> <span class="hljs-variable">lunar</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChineseDate</span>(solarDate);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">festivals</span> <span class="hljs-operator">=</span> lunar.getFestivals();<br>        <span class="hljs-keyword">return</span> lunar.toString() + <br>               (festivals.isEmpty() ? <span class="hljs-string">&quot;&quot;</span> : <span class="hljs-string">&quot; (&quot;</span> + festivals + <span class="hljs-string">&quot;)&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="event.java-事件实体标题日期内容">Event.java #
+事件实体（标题、日期、内容）</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.calendar.notepad.model;<br><br><span class="hljs-keyword">import</span> com.calendar.notepad.lunar.LunarUtil;<br><span class="hljs-keyword">import</span> cn.hutool.core.date.DateUtil;<br><span class="hljs-keyword">import</span> java.util.Date;<br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 事件实体类，包含事件的基本属性</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Event</span> &#123;<br>    <span class="hljs-keyword">private</span> String title;   <span class="hljs-comment">// 事件标题</span><br>    <span class="hljs-keyword">private</span> Date date;      <span class="hljs-comment">// 事件日期</span><br>    <span class="hljs-keyword">private</span> String content; <span class="hljs-comment">// 事件内容</span><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Event</span><span class="hljs-params">(String title, Date date, String content)</span> &#123;<br>        <span class="hljs-built_in">this</span>.title = title;<br>        <span class="hljs-built_in">this</span>.date = date;<br>        <span class="hljs-built_in">this</span>.content = content;<br>    &#125;<br><br>    <span class="hljs-comment">// Getters and Setters</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getTitle</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> title;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTitle</span><span class="hljs-params">(String title)</span> &#123;<br>        <span class="hljs-built_in">this</span>.title = title;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> Date <span class="hljs-title function_">getDate</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> date;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setDate</span><span class="hljs-params">(Date date)</span> &#123;<br>        <span class="hljs-built_in">this</span>.date = date;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getContent</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> content;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setContent</span><span class="hljs-params">(String content)</span> &#123;<br>        <span class="hljs-built_in">this</span>.content = content;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Event&#123;title=&#x27;&quot;</span> + title + <span class="hljs-string">&quot;&#x27;, date=&quot;</span> + <br>               DateUtil.format(date, <span class="hljs-string">&quot;yyyy-MM-dd&quot;</span>) + <br>               <span class="hljs-string">&quot;, lunarDate=&quot;</span> + LunarUtil.solarToLunarString(date) +<br>               <span class="hljs-string">&quot;, content=&#x27;&quot;</span> + content + <span class="hljs-string">&quot;&#x27;&#125;&quot;</span>;<br>    &#125;<br>&#125;  <br></code></pre></td></tr></table></figure>
+<h3
+id="eventnotifier.java-事件通知器观察者模式管理事件变更通知">EventNotifier.java
+# 事件通知器（观察者模式，管理事件变更通知）</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.calendar.notepad.observer;<br><br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 事件通知器（主题）</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EventNotifier</span> &#123;<br>    <span class="hljs-keyword">private</span> List&lt;Observer&gt; observers = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">registerObserver</span><span class="hljs-params">(Observer observer)</span> &#123;<br>        observers.add(observer);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">removeObserver</span><span class="hljs-params">(Observer observer)</span> &#123;<br>        observers.remove(observer);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">notifyObservers</span><span class="hljs-params">(String message)</span> &#123;<br>        <span class="hljs-keyword">for</span> (Observer observer : observers) &#123;<br>            observer.update(message);<br>        &#125;<br>    &#125;<br>&#125;  <br></code></pre></td></tr></table></figure>
+<h3 id="observer.java-观察者接口定义更新方法">Observer.java #
+观察者接口（定义更新方法）</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.calendar.notepad.observer;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 观察者接口（观察者模式）</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Observer</span> &#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">update</span><span class="hljs-params">(String message)</span>;<br>&#125;  <br></code></pre></td></tr></table></figure>
+<h3
+id="notepadmanager.java-核心管理类单例事件增删改查存储策略阴历映射">NotepadManager.java
+# 核心管理类（单例，事件增删改查、存储策略、阴历映射）</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.calendar.notepad.service;<br><br><span class="hljs-keyword">import</span> com.calendar.notepad.lunar.LunarUtil;<br><span class="hljs-keyword">import</span> com.calendar.notepad.model.Event;<br><span class="hljs-keyword">import</span> com.calendar.notepad.observer.EventNotifier;<br><span class="hljs-keyword">import</span> com.calendar.notepad.strategy.StorageStrategy;<br><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 记事本管理类（使用Hutool优化）</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">NotepadManager</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> NotepadManager instance;<br>    <span class="hljs-keyword">private</span> List&lt;Event&gt; eventList;<br>    <span class="hljs-keyword">private</span> Map&lt;String, List&lt;Event&gt;&gt; lunarEventMap;<br>    <span class="hljs-keyword">private</span> StorageStrategy storageStrategy;<br>    <span class="hljs-keyword">private</span> EventNotifier eventNotifier;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-title function_">NotepadManager</span><span class="hljs-params">()</span> &#123;<br>        eventList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        eventNotifier = <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventNotifier</span>();<br>        lunarEventMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">synchronized</span> NotepadManager <span class="hljs-title function_">getInstance</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">if</span> (instance == <span class="hljs-literal">null</span>) &#123;<br>            instance = <span class="hljs-keyword">new</span> <span class="hljs-title class_">NotepadManager</span>();<br>        &#125;<br>        <span class="hljs-keyword">return</span> instance;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setStorageStrategy</span><span class="hljs-params">(StorageStrategy strategy)</span> &#123;<br>        <span class="hljs-built_in">this</span>.storageStrategy = strategy;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addEvent</span><span class="hljs-params">(Event event)</span> &#123;<br>        eventList.add(event);<br>        updateLunarEventMap(event);<br>        eventNotifier.notifyObservers(<span class="hljs-string">&quot;添加了事件: &quot;</span> + event.getTitle());<br>        <span class="hljs-keyword">if</span> (storageStrategy != <span class="hljs-literal">null</span>) &#123;<br>            storageStrategy.saveEvents(eventList);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">updateEvent</span><span class="hljs-params">(Event oldEvent, Event newEvent)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> eventList.indexOf(oldEvent);<br>        <span class="hljs-keyword">if</span> (index != -<span class="hljs-number">1</span>) &#123;<br>            removeFromLunarEventMap(oldEvent);<br>            eventList.set(index, newEvent);<br>            updateLunarEventMap(newEvent);<br>            eventNotifier.notifyObservers(<span class="hljs-string">&quot;更新了事件: &quot;</span> + oldEvent.getTitle());<br>            <span class="hljs-keyword">if</span> (storageStrategy != <span class="hljs-literal">null</span>) &#123;<br>                storageStrategy.saveEvents(eventList);<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">deleteEvent</span><span class="hljs-params">(Event event)</span> &#123;<br>        eventList.remove(event);<br>        removeFromLunarEventMap(event);<br>        eventNotifier.notifyObservers(<span class="hljs-string">&quot;删除了事件: &quot;</span> + event.getTitle());<br>        <span class="hljs-keyword">if</span> (storageStrategy != <span class="hljs-literal">null</span>) &#123;<br>            storageStrategy.saveEvents(eventList);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> List&lt;Event&gt; <span class="hljs-title function_">getEventList</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> eventList;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> List&lt;Event&gt; <span class="hljs-title function_">queryBySolarDate</span><span class="hljs-params">(Date date)</span> &#123;<br>        List&lt;Event&gt; result = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-keyword">for</span> (Event event : eventList) &#123;<br>            <span class="hljs-keyword">if</span> (event.getDate().equals(date)) &#123;<br>                result.add(event);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br><br>    <span class="hljs-comment">// 通过阳历日期转换为阴历查询</span><br>    <span class="hljs-keyword">public</span> List&lt;Event&gt; <span class="hljs-title function_">queryByLunarDate</span><span class="hljs-params">(Date solarDate)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> LunarUtil.getLunarKey(solarDate);<br>        <span class="hljs-keyword">return</span> lunarEventMap.getOrDefault(key, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;());<br>    &#125;<br><br>    <span class="hljs-comment">// 直接通过阴历信息查询</span><br>    <span class="hljs-keyword">public</span> List&lt;Event&gt; <span class="hljs-title function_">queryByLunarDate</span><span class="hljs-params">(<span class="hljs-type">int</span> lunarYear, <span class="hljs-type">int</span> lunarMonth, String lunarDay)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> lunarYear + <span class="hljs-string">&quot;-&quot;</span> + lunarMonth + <span class="hljs-string">&quot;-&quot;</span> + lunarDay;<br>        <span class="hljs-keyword">return</span> lunarEventMap.getOrDefault(key, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;());<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">registerObserver</span><span class="hljs-params">(com.calendar.notepad.observer.Observer observer)</span> &#123;<br>        eventNotifier.registerObserver(observer);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">removeObserver</span><span class="hljs-params">(com.calendar.notepad.observer.Observer observer)</span> &#123;<br>        eventNotifier.removeObserver(observer);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">loadEvents</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">if</span> (storageStrategy != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-built_in">this</span>.eventList = storageStrategy.loadEvents();<br>            rebuildLunarEventMap();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">updateLunarEventMap</span><span class="hljs-params">(Event event)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> LunarUtil.getLunarKey(event.getDate());<br>        lunarEventMap.computeIfAbsent(key, k -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;()).add(event);<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">removeFromLunarEventMap</span><span class="hljs-params">(Event event)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> LunarUtil.getLunarKey(event.getDate());<br>        List&lt;Event&gt; events = lunarEventMap.get(key);<br>        <span class="hljs-keyword">if</span> (events != <span class="hljs-literal">null</span>) &#123;<br>            events.remove(event);<br>            <span class="hljs-keyword">if</span> (events.isEmpty()) &#123;<br>                lunarEventMap.remove(key);<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">rebuildLunarEventMap</span><span class="hljs-params">()</span> &#123;<br>        lunarEventMap.clear();<br>        <span class="hljs-keyword">for</span> (Event event : eventList) &#123;<br>            updateLunarEventMap(event);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3
+id="csvstoragestrategy.java-csv存储实现读写events.csv">CsvStorageStrategy.java
+# CSV存储实现（读写events.csv）</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.calendar.notepad.strategy;<br><br><span class="hljs-keyword">import</span> com.calendar.notepad.model.Event;<br><span class="hljs-keyword">import</span> com.opencsv.CSVReader;<br><span class="hljs-keyword">import</span> com.opencsv.CSVWriter;<br><span class="hljs-keyword">import</span> com.opencsv.exceptions.CsvValidationException;<br><span class="hljs-keyword">import</span> java.io.FileNotFoundException;<br><span class="hljs-keyword">import</span> java.io.FileReader;<br><span class="hljs-keyword">import</span> java.io.FileWriter;<br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.text.ParseException;<br><span class="hljs-keyword">import</span> java.text.SimpleDateFormat;<br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.Date;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CsvStorageStrategy</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">StorageStrategy</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">FILE_PATH</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;events.csv&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">SimpleDateFormat</span> <span class="hljs-variable">DATE_FORMAT</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleDateFormat</span>(<span class="hljs-string">&quot;yyyy-MM-dd&quot;</span>);<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> List&lt;Event&gt; <span class="hljs-title function_">loadEvents</span><span class="hljs-params">()</span> &#123;<br>        List&lt;Event&gt; events = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-keyword">try</span> (<span class="hljs-type">CSVReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CSVReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(FILE_PATH))) &#123;<br>            String[] nextLine;<br>            <span class="hljs-keyword">while</span> ((nextLine = reader.readNext()) != <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-keyword">if</span> (nextLine.length == <span class="hljs-number">3</span>) &#123;<br>                    <span class="hljs-keyword">try</span> &#123;<br>                        <span class="hljs-type">Date</span> <span class="hljs-variable">date</span> <span class="hljs-operator">=</span> DATE_FORMAT.parse(nextLine[<span class="hljs-number">1</span>]);<br>                        events.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Event</span>(nextLine[<span class="hljs-number">0</span>], date, nextLine[<span class="hljs-number">2</span>]));<br>                    &#125; <span class="hljs-keyword">catch</span> (ParseException e) &#123;<br>                        System.err.println(<span class="hljs-string">&quot;无效日期格式: &quot;</span> + nextLine[<span class="hljs-number">1</span>]);<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (FileNotFoundException e) &#123;<br>            <span class="hljs-comment">// 文件不存在时返回空列表</span><br>        &#125; <span class="hljs-keyword">catch</span> (CsvValidationException e) &#123;<br>            System.err.println(<span class="hljs-string">&quot;CSV格式验证失败: &quot;</span> + e.getMessage());<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>        <span class="hljs-keyword">return</span> events;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">saveEvents</span><span class="hljs-params">(List&lt;Event&gt; events)</span> &#123;<br>        <span class="hljs-keyword">try</span> (<span class="hljs-type">CSVWriter</span> <span class="hljs-variable">writer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CSVWriter</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileWriter</span>(FILE_PATH))) &#123;<br>            <span class="hljs-keyword">for</span> (Event event : events) &#123;<br>                String[] line = &#123;<br>                    event.getTitle(),<br>                    DATE_FORMAT.format(event.getDate()),<br>                    event.getContent()<br>                &#125;;<br>                writer.writeNext(line);<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3
+id="storagestrategy.java-存储策略接口可扩展json数据库等存储">StorageStrategy.java
+# 存储策略接口（可扩展JSON、数据库等存储）</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.calendar.notepad.strategy;<br><br><span class="hljs-keyword">import</span> com.calendar.notepad.model.Event;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 存储策略接口（策略模式）</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">StorageStrategy</span> &#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">saveEvents</span><span class="hljs-params">(List&lt;Event&gt; events)</span>;<br>    List&lt;Event&gt; <span class="hljs-title function_">loadEvents</span><span class="hljs-params">()</span>;<br>&#125;  <br></code></pre></td></tr></table></figure>
+<h2 id="八总结">八、总结</h2>
+<p>本项目通过 Hutool 简化日期处理，OpenCSV
+实现数据持久化，并结合设计模式提升代码可维护性。核心关键点包括：</p>
+<ul>
+<li>单例模式确保全局唯一实例。</li>
+<li>策略模式解耦存储逻辑。</li>
+<li>Hutool 的<code>ChineseDate</code>实现阳历转阴历。</li>
+<li>多层防御机制处理非法日期（解析时验证、工具类过滤、加载后清理）。
+<ul>
+<li>提供的代码并没有优化数据</li>
+</ul></li>
+</ul>
+<p>通过合理使用工具库和设计模式，有效提升了开发效率和代码健壮性。</p>
+<h2 id="section"></h2>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/OpenCSV/" class="print-no-link">#OpenCSV</a>
+      
+        <a href="/tags/Hutool/" class="print-no-link">#Hutool</a>
+      
+        <a href="/tags/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" class="print-no-link">#观察者模式</a>
+      
+        <a href="/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" class="print-no-link">#策略模式</a>
+      
+        <a href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="print-no-link">#单例模式</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>基于 Hutool 和 OpenCSV 的日历记事本系统开发</div>
+      <div>http://example.com/2025/05/25/基于-Hutool-和-OpenCSV-的日历记事本系统开发/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/21/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="考研数学基础知识">
+                        <span class="hidden-mobile">考研数学基础知识</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
