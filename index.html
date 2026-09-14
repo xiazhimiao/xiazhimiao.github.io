@@ -1,1049 +1,92 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/xhy.jpg">
-  <link rel="icon" href="/img/xhy.jpg">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="XiaZhiMiao的个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="瀚海无江">
-<meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="瀚海无江">
-<meta property="og:description" content="XiaZhiMiao的个人博客">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-  
-  <title>瀚海无江</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>夏之渺</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      overflow: hidden;
+      background: #0c1216;
+      color: #eef2f4;
+      font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
     }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
 
+    .bg {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
 
-  
-<meta name="generator" content="Hexo 7.3.0"></head>
+    .scrim {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(
+        90deg,
+        rgba(6, 10, 14, 0.62) 0%,
+        rgba(6, 10, 14, 0.3) 45%,
+        rgba(6, 10, 14, 0.12) 100%
+      );
+    }
 
+    .card {
+      position: relative;
+      height: 100%;
+      max-width: 720px;
+      padding: 0 8vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 22px;
+    }
 
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+    }
+
+    .name {
+      font-family: "Songti SC", "STSong", "SimSun", Georgia, serif;
+      font-size: 44px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+    }
+
+    .sign {
+      max-width: 22em;
+      font-size: 16px;
+      line-height: 2;
+      letter-spacing: 0.06em;
+      color: rgba(238, 242, 244, 0.82);
+      text-shadow: 0 1px 12px rgba(0, 0, 0, 0.55);
+    }
+
+    @media (max-width: 640px) {
+      .name { font-size: 32px; }
+      .avatar { width: 76px; height: 76px; }
+    }
+  </style>
+</head>
 <body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 100vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>瀚海无江，思心似雪</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/bj.jpg') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="XiaZhiMiao 个人博客"></span>
-          
-        </div>
-
-        
-      </div>
-
-      
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      <div class="container nopadding-x-md">
-        <div id="board"
-          style="margin-top: 0">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2025/07/01/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E5%AE%9E%E8%AE%AD%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/" target="_self">
-          <img src="/img/any0.png" srcset="/img/loading.gif" lazyload alt="大数据可视化实训中的一些问题">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/01/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E5%AE%9E%E8%AE%AD%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/" target="_self">
-          大数据可视化实训中的一些问题
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2025/07/01/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E5%AE%9E%E8%AE%AD%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/" target="_self">
-        <div>
-          杀死进程 1pkill -f &quot;gunicorn&quot; 遇到的问题： 1.conda环境装错位置了，导致环境变量那步出错 2.root账户没有对report权限，导致superset连接不上
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-01 09:07" pubdate>
-              2025-07-01
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2025/06/25/Python-%E5%BC%80%E5%8F%91%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87-Grained-AI/" target="_self">
-          <img src="/img/any0.png" srcset="/img/loading.gif" lazyload alt="Python 开发实习面试准备 - Grained.AI">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/06/25/Python-%E5%BC%80%E5%8F%91%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87-Grained-AI/" target="_self">
-          Python 开发实习面试准备 - Grained.AI
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2025/06/25/Python-%E5%BC%80%E5%8F%91%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87-Grained-AI/" target="_self">
-        <div>
-          Python 软件开发实习生面试准备（公司要求梳理篇） 一、基础资质类 问题 1：该岗位要求的学历及专业背景是？ 回答：计算机相关专业在读本科生或者研究生，我是北华大学大三本科生。 问题 2：你是否符合计算机相关专业在读这一基本条件呀，简单说下你的专业和在读阶段？ 回答：符合，我是北华大学计算机相关专业大三本科生。 二、核心技能类 （1）编程语言 问题 3：岗位要求 “熟练
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-06-25 15:14" pubdate>
-              2025-06-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E9%9D%A2%E8%AF%95/" class="category-chain-item">面试</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%8E%9F%E5%88%9B/">#原创</a>
-            
-              <a href="/tags/Python/">#Python</a>
-            
-              <a href="/tags/%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95/">#实习面试</a>
-            
-              <a href="/tags/Grained-AI/">#Grained.AI</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2025/05/26/%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81%E4%B8%8E-Eclipse-%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%9A%E8%A7%A3%E5%86%B3%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/" target="_self">
-          <img src="/img/any0.png" srcset="/img/loading.gif" lazyload alt="文件编码与 Eclipse 的关系：解决乱码问题">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/05/26/%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81%E4%B8%8E-Eclipse-%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%9A%E8%A7%A3%E5%86%B3%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/" target="_self">
-          文件编码与 Eclipse 的关系：解决乱码问题
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2025/05/26/%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81%E4%B8%8E-Eclipse-%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%9A%E8%A7%A3%E5%86%B3%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/" target="_self">
-        <div>
-          文件编码与 Eclipse 的关系：解决乱码问题全攻略 在日常的编程工作中，乱码问题就像一只令人头疼的 “拦路虎”，时不时跳出来干扰我们的工作节奏。尤其是在使用 Eclipse 进行 Java 开发时，文件乱码和控制台乱码问题尤为常见。这背后的 “罪魁祸首”，其实就是文件编码与 Eclipse 配置之间的 “不兼容”。今天，我们就来深入探讨一下文件编码与 Eclipse 的关系，以及
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-05-26 07:29" pubdate>
-              2025-05-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/" class="category-chain-item">疑难杂症</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%B9%B1%E7%A0%81/">#乱码</a>
-            
-              <a href="/tags/gbk/">#gbk</a>
-            
-              <a href="/tags/utf-8/">#utf-8</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2025/05/25/%E5%9F%BA%E4%BA%8E-Hutool-%E5%92%8C-OpenCSV-%E7%9A%84%E6%97%A5%E5%8E%86%E8%AE%B0%E4%BA%8B%E6%9C%AC%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/" target="_self">
-          <img src="/img/any0.png" srcset="/img/loading.gif" lazyload alt="基于 Hutool 和 OpenCSV 的日历记事本系统开发">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/05/25/%E5%9F%BA%E4%BA%8E-Hutool-%E5%92%8C-OpenCSV-%E7%9A%84%E6%97%A5%E5%8E%86%E8%AE%B0%E4%BA%8B%E6%9C%AC%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/" target="_self">
-          基于 Hutool 和 OpenCSV 的日历记事本系统开发
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2025/05/25/%E5%9F%BA%E4%BA%8E-Hutool-%E5%92%8C-OpenCSV-%E7%9A%84%E6%97%A5%E5%8E%86%E8%AE%B0%E4%BA%8B%E6%9C%AC%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/" target="_self">
-        <div>
-          基于 Hutool 和 OpenCSV 的日历记事本系统开发实践 一、项目概述 本文记录一个基于 Java 的日历记事本系统开发过程，主要解决阳历与阴历日期管理、事件存储与查询、异常处理等问题，涉及 Hutool 工具库、OpenCSV 文件解析及设计模式的应用。  核心库版本  Hutool：5.8.38（日期处理与工具类） OpenCSV：5.7.0（CSV 文件读写）
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-05-25 17:07" pubdate>
-              2025-05-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Java/" class="category-chain-item">Java</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/OpenCSV/">#OpenCSV</a>
-            
-              <a href="/tags/Hutool/">#Hutool</a>
-            
-              <a href="/tags/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">#观察者模式</a>
-            
-              <a href="/tags/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">#策略模式</a>
-            
-              <a href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">#单例模式</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2025/05/21/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" target="_self">
-          <img src="/img/any0.png" srcset="/img/loading.gif" lazyload alt="考研数学基础知识">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/05/21/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" target="_self">
-          考研数学基础知识
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2025/05/21/%E8%80%83%E7%A0%94%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" target="_self">
-        <div>
-          三、方程与不等式 （1）一元二次方程及其解 ax² + bx + c = 0(a ≠ 0)为一元二次方程，记∆ = b² − 4ac。  当$∆&gt;0，x_1=\frac{-b+\sqrt∆ }{2a},x_2=\frac{-b-\sqrt∆ }{2a}$,为两个互异实根； 当$∆=0，x_1=x_2=-\frac{b}{2a}$，为两个相等实根； 当$∆&lt;0，x_1=x_
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-05-21 16:51" pubdate>
-              2025-05-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" class="category-chain-item">高等数学</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%9B%B6%E5%9F%BA%E7%A1%80/" class="category-chain-item">零基础</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/">#数学基础</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2025/05/20/%E4%BD%BF%E7%94%A8Spark%E5%B0%86DataFrame%E6%95%B0%E6%8D%AE%E5%86%99%E5%85%A5MySQL%E8%A1%A8%E7%9A%84%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BC%88%E5%90%ABMySQL5-7%E5%BC%BA%E5%88%B6%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/" target="_self">
-          <img src="/img/any0.png" srcset="/img/loading.gif" lazyload alt="使用Spark将DataFrame数据写入MySQL表的完整指南（含MySQL5.7强制安装记录)">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/05/20/%E4%BD%BF%E7%94%A8Spark%E5%B0%86DataFrame%E6%95%B0%E6%8D%AE%E5%86%99%E5%85%A5MySQL%E8%A1%A8%E7%9A%84%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BC%88%E5%90%ABMySQL5-7%E5%BC%BA%E5%88%B6%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/" target="_self">
-          使用Spark将DataFrame数据写入MySQL表的完整指南（含MySQL5.7强制安装记录)
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2025/05/20/%E4%BD%BF%E7%94%A8Spark%E5%B0%86DataFrame%E6%95%B0%E6%8D%AE%E5%86%99%E5%85%A5MySQL%E8%A1%A8%E7%9A%84%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97%EF%BC%88%E5%90%ABMySQL5-7%E5%BC%BA%E5%88%B6%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/" target="_self">
-        <div>
-          使用 Spark 将 DataFrame 数据写入 MySQL 表的完整指南（含 MySQL 5.7 强制安装记录） 在大数据处理中，经常需要将数据从一个数据源转移到另一个数据源。本文将详细介绍如何使用 Spark 将 DataFrame 数据写入 MySQL 表，并记录 MySQL 5.7 强制安装过程及常见问题解决方法。 一、MySQL 5.7 强制安装记录 1. 问题背景 在
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-05-20 20:41" pubdate>
-              2025-05-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="category-chain-item">大数据</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/Spark/" class="category-chain-item">Spark</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Spark/">#Spark</a>
-            
-              <a href="/tags/DataFrame/">#DataFrame</a>
-            
-              <a href="/tags/MySQL/">#MySQL</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2025/05/13/Spark%E7%BC%96%E7%A8%8B%E9%A2%98%EF%BC%9A%E4%BD%BF%E7%94%A8RDD%E6%B1%82%E6%94%AF%E4%BB%98%E9%87%91%E9%A2%9D%E7%9A%84Top-N%E5%80%BC/" target="_self">
-          <img src="/img/any0.png" srcset="/img/loading.gif" lazyload alt="Spark编程题：使用RDD求支付金额的Top N值">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/05/13/Spark%E7%BC%96%E7%A8%8B%E9%A2%98%EF%BC%9A%E4%BD%BF%E7%94%A8RDD%E6%B1%82%E6%94%AF%E4%BB%98%E9%87%91%E9%A2%9D%E7%9A%84Top-N%E5%80%BC/" target="_self">
-          Spark编程题：使用RDD求支付金额的Top N值
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2025/05/13/Spark%E7%BC%96%E7%A8%8B%E9%A2%98%EF%BC%9A%E4%BD%BF%E7%94%A8RDD%E6%B1%82%E6%94%AF%E4%BB%98%E9%87%91%E9%A2%9D%E7%9A%84Top-N%E5%80%BC/" target="_self">
-        <div>
-          Spark 编程题：使用 RDD 求支付金额的 Top N 值 一、题目要求 使用 Spark RDD 从给定的支付数据中找出支付金额（payment 字段）最高的前 5 个值，并按降序排列输出。数据格式为逗号分隔的字符串，其中第三个字段是支付金额。具体要求如下：  从 HDFS 或本地文件系统读取数据 过滤掉无效数据行 提取 payment 字段 转换为键值对形式 按 pa
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-05-13 17:45" pubdate>
-              2025-05-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="category-chain-item">大数据</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/Spark/" class="category-chain-item">Spark</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Spark/">#Spark</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2025/04/21/c2c%EF%BC%8Cd2d/" target="_self">
-          <img src="/img/any0.png" srcset="/img/loading.gif" lazyload alt="c2c，d2d">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/21/c2c%EF%BC%8Cd2d/" target="_self">
-          c2c，d2d
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2025/04/21/c2c%EF%BC%8Cd2d/" target="_self">
-        <div>
-          c2d.jpeg
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-21 10:06" pubdate>
-              2025-04-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%A8%B1%E4%B9%90/" class="category-chain-item">娱乐</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%A8%B1%E4%B9%90/">#娱乐</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2025/04/19/%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98-v1/" target="_self">
-          <img src="/img/any0.png" srcset="/img/loading.gif" lazyload alt="路径问题-v1">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/19/%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98-v1/" target="_self">
-          路径问题-v1
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2025/04/19/%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98-v1/" target="_self">
-        <div>
-          景区路径规划系统 项目简介 本项目是一个基于Python的景区路径规划系统，使用NetworkX进行图论计算和Plotly进行可视化展示。系统能够帮助游客规划景区游览路线，包括查找最短路径、记录已游览景点、推荐未游览景点以及计算环游所有景点的最短路线等功能。 项目仓库地址：GitHub仓库 克隆代码： 12git clone https://github.com/xiazhimiao/p
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-19 07:52" pubdate>
-              2025-04-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/python/" class="category-chain-item">python</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/python/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/python/">#python</a>
-            
-              <a href="/tags/%E6%99%AF%E5%8C%BA%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%92/">#景区路径规划</a>
-            
-              <a href="/tags/NetworkX/">#NetworkX</a>
-            
-              <a href="/tags/Plotly/">#Plotly</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2025/01/04/%E5%A6%88%E5%A6%88%EF%BC%8C%E6%88%91%E6%84%9F%E8%A7%89%E6%B5%91%E8%BA%AB%E5%8F%91%E8%BD%AF%E6%80%8E%E4%B9%88%E5%8A%9E/" target="_self">
-          <img src="/img/any0.png" srcset="/img/loading.gif" lazyload alt="妈妈，我感觉浑身发软怎么办">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/01/04/%E5%A6%88%E5%A6%88%EF%BC%8C%E6%88%91%E6%84%9F%E8%A7%89%E6%B5%91%E8%BA%AB%E5%8F%91%E8%BD%AF%E6%80%8E%E4%B9%88%E5%8A%9E/" target="_self">
-          妈妈，我感觉浑身发软怎么办
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2025/01/04/%E5%A6%88%E5%A6%88%EF%BC%8C%E6%88%91%E6%84%9F%E8%A7%89%E6%B5%91%E8%BA%AB%E5%8F%91%E8%BD%AF%E6%80%8E%E4%B9%88%E5%8A%9E/" target="_self">
-        <div>
-          若感到浑身发软、无力、疲惫，那么你可能是发烧了，不要自己把手放在额头上摸摸是否发烫，因为手掌可能也是热的，导致摸不出来什么。测出来发现体温高于37.2°，那么你就是发烧了，成人的话，去吃两片扑热息痛，如果过夜后还是持续高烧，尽快去医院看看。最后一个人在外，照顾好自己。
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-01-04 18:34" pubdate>
-              2025-01-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%BA%9F%E8%AF%9D%E6%96%87%E5%AD%A6/" class="category-chain-item">废话文学</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%BA%9F%E8%AF%9D%E6%96%87%E5%AD%A6/">#废话文学</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#board">6</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-
-
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
+  <video class="bg" autoplay muted loop playsinline>
+    <source src="video/【哲风壁纸】下雨-树林-森林.mp4" type="video/mp4">
+  </video>
+  <div class="scrim"></div>
+
+  <main class="card">
+    <img class="avatar" src="img/avatar.jpg" alt="夏之渺">
+    <h1 class="name">夏之渺</h1>
+    <p class="sign">好像独坐空木房檐下，雷吹风铃柳叶悠悠，心如止水无烦恼事</p>
   </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
 </body>
 </html>
