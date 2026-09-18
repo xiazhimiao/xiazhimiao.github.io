@@ -23,18 +23,6 @@
       z-index: -2;
     }
 
-    .scrim {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background: linear-gradient(
-        90deg,
-        rgba(6, 10, 14, 0.62) 0%,
-        rgba(6, 10, 14, 0.3) 45%,
-        rgba(6, 10, 14, 0.12) 100%
-      );
-    }
-
     .card {
       position: relative;
       height: 100%;
@@ -85,18 +73,58 @@
       .name { font-size: 32px; }
       .avatar { width: 76px; height: 76px; }
     }
+    /* 视频进度条 */
+    .vbar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 30;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.14);
+    }
+    .vbar span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: #4fd1c5;
+    }
   </style>
 </head>
 <body>
   <video class="bg" autoplay muted loop playsinline poster="img/poster.jpg">
     <source src="video/bg.mp4" type="video/mp4">
   </video>
-  <div class="scrim"></div>
 
   <main class="card">
     <img class="avatar" src="img/avatar.jpg" alt="夏之渺">
     <h1 class="name">夏之<a href="toc.html">渺</a></h1>
     <p class="sign">好像独坐空木房檐下，雷吹风铃柳叶悠悠，心如止水无烦恼事</p>
   </main>
+  <div class="vbar"><span id="vbar"></span></div>
+
+  <script>
+    (function () {
+      "use strict";
+      var v = document.querySelector("video");
+      var bar = document.getElementById("vbar");
+      if (!v || !bar) return;
+      var last = 0;
+      function newColor() {
+        var h = Math.floor(Math.random() * 360);
+        var s = 70 + Math.floor(Math.random() * 26);
+        var l = 55 + Math.floor(Math.random() * 16);
+        bar.style.background = "hsl(" + h + ", " + s + "%, " + l + "%)";
+      }
+      newColor();
+      (function tick() {
+        var t = v.currentTime;
+        if (v.duration) bar.style.width = (t / v.duration * 100) + "%";
+        if (t + 0.05 < last) newColor();
+        last = t;
+        requestAnimationFrame(tick);
+      })();
+    })();
+  </script>
 </body>
 </html>

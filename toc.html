@@ -22,14 +22,6 @@
       object-fit: cover;
       z-index: -2;
     }
-    .scrim {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background-color: rgba(6, 10, 14, 0.52);
-      background-image: linear-gradient(180deg, rgba(6, 10, 14, 0.35) 0%, rgba(6, 10, 14, 0.15) 40%, rgba(6, 10, 14, 0.45) 100%);
-    }
-
     /* 全站常驻顶栏：小头像 */
     .topbar {
       position: fixed;
@@ -138,13 +130,28 @@
       letter-spacing: 0.12em;
       color: rgba(238, 242, 244, 0.45);
     }
+    /* 视频进度条 */
+    .vbar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 30;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.14);
+    }
+    .vbar span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: #4fd1c5;
+    }
   </style>
 </head>
 <body>
   <video class="bg" autoplay muted loop playsinline poster="img/poster.jpg">
     <source src="video/bg.mp4" type="video/mp4">
   </video>
-  <div class="scrim"></div>
 
   <a class="topbar" href="index.html" aria-label="返回首页">
     <img src="img/avatar.jpg" alt="夏之渺">
@@ -166,7 +173,46 @@
           </span>
         </span>
       </a>
+
+      <a class="entry" href="drive.html">
+        <span class="entry-inner">
+          <span class="entry-face entry-front">
+            <span class="entry-title">小车驾驶技能学习</span>
+            <span class="entry-sub">C1驾照考试</span>
+            <span class="entry-meta">科目二考试中</span>
+          </span>
+          <span class="entry-face entry-back">
+            <span class="entry-enter">进入主题</span>
+            <span class="entry-date">创建于 2026-09-18</span>
+          </span>
+        </span>
+      </a>
     </div>
   </main>
+  <div class="vbar"><span id="vbar"></span></div>
+
+  <script>
+    (function () {
+      "use strict";
+      var v = document.querySelector("video");
+      var bar = document.getElementById("vbar");
+      if (!v || !bar) return;
+      var last = 0;
+      function newColor() {
+        var h = Math.floor(Math.random() * 360);
+        var s = 70 + Math.floor(Math.random() * 26);
+        var l = 55 + Math.floor(Math.random() * 16);
+        bar.style.background = "hsl(" + h + ", " + s + "%, " + l + "%)";
+      }
+      newColor();
+      (function tick() {
+        var t = v.currentTime;
+        if (v.duration) bar.style.width = (t / v.duration * 100) + "%";
+        if (t + 0.05 < last) newColor();
+        last = t;
+        requestAnimationFrame(tick);
+      })();
+    })();
+  </script>
 </body>
 </html>
