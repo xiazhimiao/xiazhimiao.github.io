@@ -38,58 +38,90 @@
       text-align: center;
     }
 
-    .sec { margin-top: 80px; }
+    .sec { margin-top: 72px; }
     .sec h2 { font-size: 15px; font-weight: 600; }
     .rule { height: 1px; background: rgba(255, 255, 255, 0.1); margin-top: 14px; }
-    .empty { margin-top: 18px; font-size: 13px; color: rgba(238, 242, 244, 0.4); }
 
-    /* 横向时间线 */
-    .tl-wrap {
-      margin-top: 32px;
-      overflow-x: auto;
-      padding-bottom: 8px;
+    /* 上次失误 */
+    .fails { list-style: none; margin-top: 18px; display: grid; gap: 6px; font-size: 15px; }
+    .cause {
+      margin-top: 14px;
+      font-size: 13.5px;
+      line-height: 1.9;
+      color: rgba(238, 242, 244, 0.6);
+      max-width: 50em;
     }
-    .tl {
-      position: relative;
+
+    /* 考试要点 */
+    .item { margin-top: 30px; }
+    .head {
       display: flex;
-      min-width: max-content;
-      list-style: none;
-    }
-    .tl::before {
-      content: "";
-      position: absolute;
-      left: 74px; right: 74px; top: 35px;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.16);
-    }
-    .tl-item {
-      position: relative;
-      width: 148px;
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      text-align: center;
+      gap: 14px;
     }
-    .tl-date {
-      font-size: 12px; line-height: 18px;
-      color: rgba(238, 242, 244, 0.45);
-      font-variant-numeric: tabular-nums;
+    .h { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .h input {
+      width: 15px; height: 15px;
+      flex: 0 0 auto;
+      accent-color: #c9d2d7;
+      cursor: pointer;
+      margin: 0;
     }
-    .tl-dot {
-      margin-top: 12px;
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      background: #0b1013;
+    .h span { font-size: 15px; font-weight: 600; }
+
+    .edit {
+      display: none;
+      font: inherit;
+      font-size: 12.5px;
+      color: rgba(238, 242, 244, 0.5);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 2px 0;
+      white-space: nowrap;
     }
-    .tl-item.is-done .tl-dot { background: rgba(238, 242, 244, 0.75); border-color: rgba(238, 242, 244, 0.75); }
-    .tl-item.is-now .tl-dot {
-      background: #eef2f4; border-color: #eef2f4;
-      outline: 1px solid rgba(238, 242, 244, 0.35);
-      outline-offset: 3px;
+    body.editable .edit { display: inline-block; }
+    .edit:hover { color: #eef2f4; text-decoration: underline; text-underline-offset: 3px; }
+
+    .body { margin-top: 10px; padding-left: 25px; }
+    .tip {
+      font-size: 14px;
+      line-height: 1.95;
+      color: rgba(238, 242, 244, 0.82);
+      max-width: 54em;
+      white-space: pre-wrap;
     }
-    .tl-label { margin-top: 13px; font-size: 14px; color: rgba(238, 242, 244, 0.85); }
-    .tl-state { margin-top: 3px; font-size: 12px; color: rgba(238, 242, 244, 0.4); }
+
+    textarea {
+      display: block;
+      width: 100%;
+      max-width: 54em;
+      min-height: 10em;
+      padding: 12px 14px;
+      font: inherit;
+      font-size: 14px;
+      line-height: 1.95;
+      color: #eef2f4;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 4px;
+      resize: vertical;
+    }
+    textarea:focus { outline: none; border-color: rgba(255, 255, 255, 0.42); }
+
+    .acts { margin-top: 10px; display: flex; gap: 10px; }
+    .acts button {
+      font: inherit;
+      font-size: 13px;
+      padding: 6px 18px;
+      color: #eef2f4;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .acts button:hover { border-color: rgba(255, 255, 255, 0.6); }
+
     /* 视频进度条 */
     .vbar {
       position: fixed;
@@ -121,65 +153,75 @@
     <h1>小车驾驶技能学习</h1>
 
     <section class="sec">
-      <h2>时间线</h2>
+      <h2>上次失误</h2>
       <div class="rule"></div>
-      <div class="tl-wrap">
-        <ol class="tl">
-          <li class="tl-item is-done">
-            <span class="tl-date">—</span>
-            <span class="tl-dot"></span>
-            <span class="tl-label">报名</span>
-            <span class="tl-state">已完成</span>
-          </li>
-          <li class="tl-item is-done">
-            <span class="tl-date">—</span>
-            <span class="tl-dot"></span>
-            <span class="tl-label">科目一</span>
-            <span class="tl-state">已完成</span>
-          </li>
-          <li class="tl-item is-now">
-            <span class="tl-date">—</span>
-            <span class="tl-dot"></span>
-            <span class="tl-label">科目二</span>
-            <span class="tl-state">进行中</span>
-          </li>
-          <li class="tl-item">
-            <span class="tl-date">—</span>
-            <span class="tl-dot"></span>
-            <span class="tl-label">科目三</span>
-            <span class="tl-state">未开始</span>
-          </li>
-          <li class="tl-item">
-            <span class="tl-date">—</span>
-            <span class="tl-dot"></span>
-            <span class="tl-label">科目四</span>
-            <span class="tl-state">未开始</span>
-          </li>
-          <li class="tl-item">
-            <span class="tl-date">—</span>
-            <span class="tl-dot"></span>
-            <span class="tl-label">拿证</span>
-            <span class="tl-state">未开始</span>
-          </li>
-        </ol>
+      <ul class="fails">
+        <li>起步忘记松手刹</li>
+        <li>倒车入库过程中压线了</li>
+      </ul>
+      <p class="cause">失败原因：被催促导致紧张；在待考区等太久导致忘记考试关键步骤；车的离合不好用，我松了很多离合，车才动，我一度以为我没挂挡。</p>
+    </section>
+
+    <section class="sec">
+      <h2>科目二考试要点</h2>
+      <div class="rule"></div>
+
+      <div class="item" data-key="prep">
+        <div class="head">
+          <label class="h"><input type="checkbox"><span>上车准备</span></label>
+          <button class="edit" type="button">编辑</button>
+        </div>
+        <div class="body"><p class="tip">上车后旁边会有人提醒你把脸对准车上摄像头确认开始考试，此时不用急着挂挡松手刹开车，只要车子没动，可以一直准备，先调整座椅前后，上下，以及靠背为90度。座椅高度保持头顶和车顶一拳距离；前后保持手伸直，手腕在方向盘上。然后看车子是否打火，打火后就能调整后视镜，后视镜调整到把后视镜处在镜子上沿，左后视镜车身在镜子二分之一处，右后视镜在三分之一处。调整完成后，如果已经打火，那么就踩住离合和刹车，然后挂挡，松手刹，松脚刹，慢慢松离合，车子就往前开了。
+链接：https://v.douyin.com/mG16Txxp1ac/</p></div>
+      </div>
+
+      <div class="item" data-key="reverse">
+        <div class="head">
+          <label class="h"><input type="checkbox"><span>倒车入库</span></label>
+          <button class="edit" type="button">编辑</button>
+        </div>
+        <div class="body"><p class="tip">倒车入库，领线：让左后视镜下沿中间与左侧黄线重合，开至肩膀与车前黄线重合停车。然后就是倒车，后视镜下沿与黄线重合后向右打满方向盘，当车身到达30cm位置后，观察是否能够一把入库，不能的话就调整一下，关键要慢，停车时机观察左前门把手前方与车后黄线重合，或者后轮上方与黄线重合。
+链接：https://v.douyin.com/dUDUQ4cA96M/</p></div>
+      </div>
+
+      <div class="item" data-key="side">
+        <div class="head">
+          <label class="h"><input type="checkbox"><span>侧方停车</span></label>
+          <button class="edit" type="button">编辑</button>
+        </div>
+        <div class="body"><p class="tip">侧方停车：领线需要尽量靠后保持30cm，观察右后视镜过直角后停车，然后倒车等直角消失后打满，观察左后视镜，当后门把手与黄线重合或者车轮压到黄线回正方向盘，然后等待底库直角出现后向左打满方向盘，等平行后停车。然后打左转向灯，等三秒后开出，观察左后视镜车轮与黄线重合后回正方向盘，车轮出黄线后向右打满，开一会回正方向盘，进入下一个项目。</p></div>
+      </div>
+
+      <div class="item" data-key="curve">
+        <div class="head">
+          <label class="h"><input type="checkbox"><span>曲线行驶</span></label>
+          <button class="edit" type="button">编辑</button>
+        </div>
+        <div class="body"><p class="tip">重点是保持车身是在入口中间进入，然后凭感觉，具体的内容我等下再补充。</p></div>
+      </div>
+
+      <div class="item" data-key="turn">
+        <div class="head">
+          <label class="h"><input type="checkbox"><span>直角转弯</span></label>
+          <button class="edit" type="button">编辑</button>
+        </div>
+        <div class="body"><p class="tip">需要提前打左转向灯，车身靠右边行驶，当左门把手与直角重合时向左打满，然后回正。</p></div>
+      </div>
+
+      <div class="item" data-key="hill">
+        <div class="head">
+          <label class="h"><input type="checkbox"><span>坡道定点停车与起步</span></label>
+          <button class="edit" type="button">编辑</button>
+        </div>
+        <div class="body"><p class="tip">车身在坡道中间驶入，可以调整一下靠右边，当左后视镜盖住中间黄线后踩刹车，拉手刹，离合的脚不要动，等三秒后松手刹，起步，考试结束。</p></div>
       </div>
     </section>
-
-    <section class="sec">
-      <h2>学习资料</h2>
-      <div class="rule"></div>
-      <p class="empty">暂无资料</p>
-    </section>
-
-    <section class="sec">
-      <h2>阶段学习</h2>
-      <div class="rule"></div>
-      <p class="empty">暂无阶段</p>
-    </section>
   </main>
+
   <div class="vbar"><span id="vbar"></span></div>
 
   <script>
+    /* 视频进度条 */
     (function () {
       "use strict";
       var v = document.querySelector("video");
@@ -200,6 +242,91 @@
         last = t;
         requestAnimationFrame(tick);
       })();
+    })();
+  </script>
+
+  <script>
+    /* 考试要点：编辑正文，保存到本地 */
+    (function () {
+      "use strict";
+      var PREFIX = "drive.tips.";
+
+      /* 只在本地（file://）打开时提供编辑；线上版本只有最终内容 */
+      if (location.protocol !== "file:") return;
+      document.body.classList.add("editable");
+
+      function read(key, fallback) {
+        try {
+          var v = localStorage.getItem(PREFIX + key);
+          return v === null ? fallback : v;
+        } catch (e) {
+          return fallback;
+        }
+      }
+      function write(key, val) {
+        try {
+          localStorage.setItem(PREFIX + key, val);
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      document.querySelectorAll(".item").forEach(function (item) {
+        var key = item.getAttribute("data-key");
+        var body = item.querySelector(".body");
+        var btn = item.querySelector(".edit");
+
+        function show(text) {
+          body.innerHTML = "";
+          var p = document.createElement("p");
+          p.className = "tip";
+          p.textContent = text;
+          body.appendChild(p);
+        }
+
+        show(read(key, item.querySelector(".tip").textContent));
+
+        btn.addEventListener("click", function () {
+          if (item.classList.contains("editing")) return;
+          item.classList.add("editing");
+
+          var current = item.querySelector(".tip").textContent;
+          body.innerHTML = "";
+
+          var ta = document.createElement("textarea");
+          ta.value = current;
+
+          var acts = document.createElement("div");
+          acts.className = "acts";
+          var ok = document.createElement("button");
+          ok.type = "button";
+          ok.textContent = "保存";
+          var no = document.createElement("button");
+          no.type = "button";
+          no.textContent = "取消";
+          acts.appendChild(ok);
+          acts.appendChild(no);
+
+          body.appendChild(ta);
+          body.appendChild(acts);
+          ta.focus();
+
+          ok.addEventListener("click", function () {
+            var val = ta.value;
+            write(key, val);
+            item.classList.remove("editing");
+            show(val);
+            btn.textContent = "已保存";
+            setTimeout(function () { btn.textContent = "编辑"; }, 1200);
+          });
+
+          no.addEventListener("click", function () {
+            item.classList.remove("editing");
+            show(current);
+          });
+        });
+      });
     })();
   </script>
 </body>
